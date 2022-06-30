@@ -2,9 +2,6 @@
 
 <p align="center">基于naiveui、typescript的表单生成器，支持复杂表格Tree等常用组件</p>
 <p align="center">
-  <a href="https://github.com/zclzone/vue-naive-admin/actions"><img allt="checks" src="https://badgen.net/github/checks/zclzone/vue-naive-admin"/></a>
-  <a href="https://github.com/zclzone/vue-naive-admin"><img allt="stars" src="https://badgen.net/github/stars/zclzone/vue-naive-admin"/></a>
-  <a href="https://github.com/zclzone/vue-naive-admin"><img allt="forks" src="https://badgen.net/github/forks/zclzone/vue-naive-admin"/></a>
   <a href="./LICENSE"><img allt="MIT License" src="https://badgen.net/github/license/zclzone/vue-naive-admin"/></a>
 </p>
 

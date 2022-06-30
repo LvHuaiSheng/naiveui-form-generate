@@ -47,6 +47,7 @@ export default defineComponent({
       required: true
     },
     list: {
+      type:Array,
       required: true
     }
   }

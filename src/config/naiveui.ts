@@ -276,50 +276,93 @@ export const basicComponents = [
     label: '颜色选择器',
     type: 'color',
     options: {
-      defaultValue: 0,
+      defaultValue: '',
       width: '',
-      height: '',
-      min: 0,
-      max: 100,
-      step: 1,
       disabled: false,
-      range: false,
-      vertical: false,
-      reverse: false,
+      showAlpha: true,
+      showPreview: false,
+      placement: 'bottom-start',
+      modes: ['hex'],
       rules:getRules('number'),
     }
   },
 ]
-
 export const advanceComponents = [
   {
     label: '树形选择',
     type: 'selectTree',
-    dev:true,
     options: {
       defaultValue: [],
-      width: '200px',
-      placeholder: '',
+      width: '',
+      placeholder: '请选择',
       disabled: false,
       allowClear: false,
-      remote: true,
+      remote: false,
+      multiple: false,
+      filterable: false,
+      checkStrategy: 'all',
       remoteOptions: [],
       props: {
         label: 'label',
-        value: 'value',
-        children: 'children'
+        value: 'value'
       },
+      options: [
+        {
+          id:'1',
+          label: 'Option 1',
+          value: 'Option 1',
+          children:[
+            {
+              id:'1-1',
+              label: '1-1',
+              value: '1-1',
+            }
+          ],
+        },
+        {
+          id:'2',
+          label: 'Option 2',
+          value: 'Option 2',
+          children:[
+            {
+              id:'2-1',
+              label: '2-1',
+              value: '2-1',
+            }
+          ],
+        },
+        {
+          id:'3',
+          label: 'Option 3',
+          value: 'Option 3',
+          children:[
+            {
+              id:'3-1',
+              label: '3-1',
+              value: '3-1',
+            }
+          ],
+        }
+      ],
       remoteFunc:
           'https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json',
       rules:getRules('string')
     }
   },
   {
-    label: '图片',
-    type: 'img-upload',
-    dev:true,
+    label: '上传',
+    type: 'upload',
     options: {
       defaultValue: [],
+      defaultUpload:true,
+      directory:false,
+      directoryDnd:false,
+      showDownloadButton:false,
+      showFileList:true,
+      showRetryButton:true,
+      showRemoveButton:true,
+      showCancelButton:true,
+      showPreviewButton:true,
       name: 'file',
       action: 'http://example.com/upload',
       method: 'post',
@@ -343,11 +386,28 @@ export const advanceComponents = [
   {
     label: '穿梭框',
     type: 'transfer',
-    dev:true,
     options: {
       defaultValue: '',
       width: '',
-      disabled: false
+      disabled: false,
+      filterable:false,
+      virtualScroll:false,
+      sourceTitle:'源项',
+      targetTitle:'目标项',
+      options: [
+        {
+          label: 'Option 1',
+          value: 'Option 1'
+        },
+        {
+          label: 'Option 2',
+          value: 'Option 2'
+        },
+        {
+          label: 'Option 3',
+          value: 'Option 3'
+        }
+      ],
     }
   },
   {
@@ -367,6 +427,44 @@ export const advanceComponents = [
         value: 'value',
         children: 'children'
       },
+      options: [
+        {
+          id:'1',
+          label: 'Option 1',
+          value: 'Option 1',
+          children:[
+            {
+              id:'1-1',
+              label: '1-1',
+              value: '1-1',
+            }
+          ],
+        },
+        {
+          id:'2',
+          label: 'Option 2',
+          value: 'Option 2',
+          children:[
+            {
+              id:'2-1',
+              label: '2-1',
+              value: '2-1',
+            }
+          ],
+        },
+        {
+          id:'3',
+          label: 'Option 3',
+          value: 'Option 3',
+          children:[
+            {
+              id:'3-1',
+              label: '3-1',
+              value: '3-1',
+            }
+          ],
+        }
+      ],
       remoteFunc:
         'https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json',
       rules

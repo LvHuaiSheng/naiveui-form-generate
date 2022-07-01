@@ -1,11 +1,10 @@
 @import './scrollbar.less';
-
-@primary-color: #409EFF;
-@primary-background-color: #ecf5ff;
+@primary-color: #18a058;
+@primary-background-color: #eafaef;
 // Color variables (appears count calculates by raw css)
 @color0: #ffffff; // Appears 15 times
-@color1: #f56c6c; // Appears 9 times
-@color2: #e6a23c; // Appears 7 times
+@color1: #18a058; // Appears 9 times
+@color2: #f0a020; // Appears 7 times
 @color3: #e4e7ed; // Appears 3 times
 @color4: #f4f6fc; // Appears 3 times
 @color5: #e1e1e1; // Appears 3 times
@@ -109,7 +108,7 @@ body {
       position: relative;
       text-overflow: ellipsis;
       white-space: nowrap;
-      min-width: 105px;
+      min-width: 100px;
       text-align: center;
       &:hover {
         border: 1px dashed@primary-color;
@@ -144,6 +143,7 @@ body {
     position: absolute;
     right: 0;
     top: 0;
+    overflow: auto;
     .widget-form-list {
       background: @color0;
       border: 1px dashed #999999;

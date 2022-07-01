@@ -229,7 +229,7 @@ export default defineComponent({
     advanceFields: {
       type: Array as PropType<Array<string>>,
       default: () => [
-          'img-upload',
+        'upload',
         'richtext-editor',
         'cascader',
         'tree',

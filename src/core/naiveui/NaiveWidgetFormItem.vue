@@ -141,12 +141,17 @@
         </n-select>
       </template>
       <template v-if="element.type === 'selectTree'">
-        <n-cascader
-            :size="config.size"
-            :value="element.options.defaultValue"
-            :options="element.options.remoteOptions"
+        <n-tree-select
+            v-model:value="element.options.defaultValue"
+            :options="element.options.options"
             :placeholder="element.options.placeholder"
-            :allowClear="element.options.allowClear"
+            :size="config.size"
+            :multiple="element.options.multiple"
+            :filterable="element.options.filterable"
+            :check-strategy="element.options.checkStrategy"
+            :clearable="element.options.allowClear"
+            :label-field="element.options.props.label"
+            :key-field="element.options.props.value"
             :disabled="element.options.disabled"
             :style="{ width: element.options.width }"
         />
@@ -180,6 +185,29 @@
           />
       </template>
 
+      <template v-if="element.type === 'color'">
+        <n-color-picker v-model:value="element.options.defaultValue"
+                        :size="config.size"
+                        :modes="element.options.modes"
+                        :disabled="element.options.disabled"
+                        :show-alpha="element.options.showAlpha"
+                        :show-preview="element.options.showPreview"
+                        :placement="element.options.placement"
+                        :style="{ width: element.options.width }"/>
+      </template>
+      <template v-if="element.type === 'transfer'">
+        <n-transfer ref="transfer" v-model:value="element.options.defaultValue"
+                    :size="config.size"
+                    :filterable="element.options.filterable"
+                    :disabled="element.options.disabled"
+                    :source-title="element.options.sourceTitle"
+                    :target-title="element.options.targetTitle"
+                    :virtual-scroll="element.options.virtualScroll"
+                    :options="element.options.options"
+                    :style="{ width: element.options.width }"
+                    />
+      </template>
+
       <template v-if="element.type === 'text'">
         <div :style="{ width: element.options.width,height:element.options.height }">
           <span>{{ element.options.defaultValue }}</span>
@@ -195,18 +223,28 @@
         </n-alert>
       </template>
 
-      <template v-if="element.type === 'img-upload'">
+      <template v-if="element.type === 'upload'">
         <n-upload
           :name="element.options.file"
           :action="element.options.action"
           :accept="element.options.accept"
+          :max="element.options.maxCount"
+          :defaultUpload="element.options.defaultUpload"
+          :directory="element.options.directory"
+          :directoryDnd="element.options.directoryDnd"
+          :showDownloadButton="element.options.showDownloadButton"
+          :showFileList="element.options.showFileList"
+          :showRetryButton="element.options.showRetryButton"
+          :showRemoveButton="element.options.showRemoveButton"
+          :showCancelButton="element.options.showCancelButton"
+          :showPreviewButton="element.options.showPreviewButton"
           :file-list="element.options.defaultValue"
           :listType="element.options.listType"
           :multiple="element.options.multiple"
           :disabled="element.options.disabled"
         >
           <SvgIcon
-            v-if="element.options.listType === 'picture-card'"
+            v-if="element.options.listType === 'image-card'"
             iconClass="insert"
           />
           <n-button v-else>
@@ -227,8 +265,8 @@
       <template v-if="element.type === 'cascader'">
         <n-cascader
           :size="config.size"
-          :value="element.options.defaultValue"
-          :options="element.options.remoteOptions"
+          v-model:value="element.options.defaultValue"
+          :options="element.options.options"
           :placeholder="element.options.placeholder"
           :allowClear="element.options.allowClear"
           :disabled="element.options.disabled"

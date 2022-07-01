@@ -228,7 +228,7 @@
       </n-switch>
     </n-form-item>
 
-    <n-form-item label="选项" v-if="hasKey('options')">
+    <n-form-item label="选项" v-if="hasKey('options') && (data.type==='radio' || data.type==='select'|| data.type==='checkbox')">
       <div>
         <n-radio-group button-style="solid" v-model:value="data.options.remote">
           <n-radio-button :value="false">静态数据</n-radio-button>
@@ -420,13 +420,25 @@
         <n-input v-model:value="data.options.valueFormat" />
       </n-form-item>
     </template>
-
-    <template v-if="data.type === 'img-upload'">
-      <n-form-item label="是否支持多选">
+    <template v-if="data.type === 'color'">
+      <n-form-item label="默认值">
+        <n-color-picker v-model:value="data.options.defaultValue"/>
+      </n-form-item>
+      <n-form-item label="可用模式">
+        <n-checkbox-group v-model:value="data.options.modes">
+          <n-space item-style="display: flex;">
+            <n-checkbox value="rgb" label="rgb" />
+            <n-checkbox value="hex" label="hex" />
+            <n-checkbox value="hsl" label="hsl" />
+            <n-checkbox value="hsv" label="hsv" />
+          </n-space>
+        </n-checkbox-group>
+      </n-form-item>
+      <n-form-item label="是否可调节alpha通道">
         <n-switch
-          checked-children="是"
-          un-checked-children="否"
-          v-model:value="data.options.multiple"
+            checked-children="是"
+            un-checked-children="否"
+            v-model:value="data.options.showAlpha"
         >
           <template #checked>
             是
@@ -436,6 +448,160 @@
           </template>
         </n-switch>
       </n-form-item>
+      <n-form-item label="是否展示颜色预览块">
+        <n-switch
+            checked-children="是"
+            un-checked-children="否"
+            v-model:value="data.options.showPreview"
+        >
+          <template #checked>
+            是
+          </template>
+          <template #unchecked>
+            否
+          </template>
+        </n-switch>
+      </n-form-item>
+      <n-form-item label="面板的弹出位置">
+        <n-select v-model:value="data.options.placement" :options="colorPlacementOptions"></n-select>
+      </n-form-item>
+    </template>
+    <template v-if="data.type==='selectTree'">
+      <n-form-item label="模式">
+        <n-radio-group
+            button-style="solid"
+            v-model:value="data.options.multiple"
+            @change="handleSelectModeChange"
+        >
+          <n-radio-button :value="false">单选</n-radio-button>
+          <n-radio-button :value="true">多选</n-radio-button>
+        </n-radio-group>
+      </n-form-item>
+
+      <n-form-item label="选中策略">
+        <n-radio-group v-model:value="data.options.checkStrategy">
+          <n-radio-button value="all">
+            All
+          </n-radio-button>
+          <n-radio-button value="parent">
+            Parent
+          </n-radio-button>
+          <n-radio-button value="child">
+            Child
+          </n-radio-button>
+        </n-radio-group>
+      </n-form-item>
+      <n-form-item label="选项" >
+        <div style="width: 100%">
+          <n-radio-group button-style="solid" v-model:value="data.options.remote">
+            <n-radio-button :value="false">静态数据</n-radio-button>
+            <n-radio-button :value="true">远端数据</n-radio-button>
+          </n-radio-group>
+          <n-space
+              v-if="data.options.remote"
+              direction="vertical"
+              style="margin-top: 10px;"
+          >
+
+            <n-input-group>
+              <n-input-group-label>远端方法</n-input-group-label>
+              <n-input  v-model:value="data.options.remoteFunc"/>
+            </n-input-group>
+
+            <n-input-group>
+              <n-input-group-label>标签</n-input-group-label>
+              <n-input  v-model:value="data.options.props.label"/>
+            </n-input-group>
+
+            <n-input-group>
+              <n-input-group-label>值</n-input-group-label>
+              <n-input  v-model:value="data.options.props.value"/>
+            </n-input-group>
+          </n-space>
+          <template v-else>
+            <div style="margin-top: 10px">
+              <n-button @click="addTreeData()" type="primary">添加</n-button>
+              <n-data-table style="margin-top: 10px;" id="selectTree-target"
+                            :columns="treeDataColumns"
+                            :data="data.options.options"
+                            :row-key="rowKey"
+                            default-expand-all
+              />
+              <n-drawer
+                  v-model:show="showTreeDataDriwer"
+                  width="100%"
+                  height="200px"
+                  placement="right"
+                  :trap-focus="false"
+                  :block-scroll="false"
+                  to="#selectTree-target"
+              >
+                <n-drawer-content>
+                  <n-form
+                      ref="treeDataFormRef"
+                      :label-width="80"
+                      :model="treeData"
+                      :rules="treeRules"
+                  >
+                    <n-form-item label="Label" path="label">
+                      <n-input v-model:value="treeData.label" placeholder="请输入" />
+                    </n-form-item>
+                    <n-form-item label="Value" path="value">
+                      <n-input v-model:value="treeData.value" placeholder="请输入" />
+                    </n-form-item>
+                  </n-form>
+                  <template #footer>
+                    <n-space>
+                      <n-button @click="showTreeDataDriwer = false">取消</n-button>
+                      <n-button type="primary" @click="submitTreeData">确定</n-button>
+                    </n-space>
+                  </template>
+                </n-drawer-content>
+              </n-drawer>
+            </div>
+          </template>
+        </div>
+      </n-form-item>
+    </template>
+    <template v-if="data.type === 'transfer'">
+      <n-form-item label="源项标题">
+        <n-input v-model:value="data.options.sourceTitle" />
+      </n-form-item>
+      <n-form-item label="目标项标题">
+        <n-input v-model:value="data.options.targetTitle" />
+      </n-form-item>
+
+      <n-form-item label="是否可过滤">
+        <n-switch
+            checked-children="是"
+            un-checked-children="否"
+            v-model:value="data.options.filterable"
+        >
+          <template #checked>
+            是
+          </template>
+          <template #unchecked>
+            否
+          </template>
+        </n-switch>
+      </n-form-item>
+      <n-form-item label="开启虚拟滚动">
+        <n-switch
+            checked-children="是"
+            un-checked-children="否"
+            v-model:value="data.options.virtualScroll"
+        >
+          <template #checked>
+            是
+          </template>
+          <template #unchecked>
+            否
+          </template>
+        </n-switch>
+      </n-form-item>
+    </template>
+
+    <template v-if="data.type === 'upload'">
 
       <n-form-item label="模式">
         <n-radio-group
@@ -443,8 +609,8 @@
           v-model:value="data.options.listType"
         >
           <n-radio-button value="text">text</n-radio-button>
-          <n-radio-button value="picture">picture</n-radio-button>
-          <n-radio-button value="picture-card">picture-card</n-radio-button>
+          <n-radio-button value="image">image</n-radio-button>
+          <n-radio-button value="image-card">image-card</n-radio-button>
         </n-radio-group>
       </n-form-item>
 
@@ -459,7 +625,6 @@
       <n-form-item label="接受上传的文件类型(多个使用 , 隔开)">
         <n-input v-model:value="data.options.accept" />
       </n-form-item>
-
       <n-form-item label="最大上传数量">
         <n-input-number v-model:value.number="data.options.maxCount" :min="1" />
       </n-form-item>
@@ -471,6 +636,25 @@
           <n-radio-button value="get">GET</n-radio-button>
           <n-radio-button value="delete">DELETE</n-radio-button>
         </n-radio-group>
+      </n-form-item>
+
+      <n-form-item label="上传属性">
+        <n-space item-style="display: flex;" align="center">
+          <n-checkbox v-model:checked="data.options.showFileList">显示列表</n-checkbox>
+          <n-checkbox v-model:checked="data.options.multiple">多选</n-checkbox>
+          <n-checkbox v-model:checked="data.options.defaultUpload">否默认上传</n-checkbox>
+          <n-checkbox v-model:checked="data.options.directory">目录上传</n-checkbox>
+          <n-checkbox v-model:checked="data.options.directoryDnd">目录拖拽上传</n-checkbox>
+        </n-space>
+      </n-form-item>
+      <n-form-item label="操作属性">
+        <n-space item-style="display: flex;" align="center">
+          <n-checkbox v-model:checked="data.options.showDownloadButton">显示下载按钮</n-checkbox>
+          <n-checkbox v-model:checked="data.options.showRetryButton">显示重新上传按钮</n-checkbox>
+          <n-checkbox v-model:checked="data.options.showRemoveButton">显示删除按钮</n-checkbox>
+          <n-checkbox v-model:checked="data.options.showCancelButton">是否显示取消按钮</n-checkbox>
+          <n-checkbox v-model:checked="data.options.showPreviewButton">是否允许显示预览按钮</n-checkbox>
+        </n-space>
       </n-form-item>
     </template>
 
@@ -692,10 +876,11 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, ref, toRefs, watch} from 'vue'
+import {h,defineComponent, reactive, ref, toRefs, watch} from 'vue'
 import Draggable from 'vuedraggable'
 import SvgIcon from '../../components/SvgIcon.vue'
-
+import { NSpace,NButton,NInput, useMessage } from 'naive-ui'
+import { v4 } from 'uuid'
 export default defineComponent({
   name: 'NaiveWidgetConfig',
   components: {
@@ -710,6 +895,54 @@ export default defineComponent({
   emits: ['update:select'],
   setup(props, context) {
     const data = ref<any>(props.select)
+    const treeDataFormRef = ref<FormInst | null>(null)
+    watch(
+      () => props.select,
+      val => (data.value = val)
+    )
+
+    watch(data, val => context.emit('update:select', val))
+
+    const treeDataColumns = ({
+                               add,
+                               edit,
+                               remove,
+                             }: {
+      add: (rowData: RowData,rowIndex: number) => void
+      edit: (rowData: RowData,rowIndex: number) => void
+      remove: (rowData: RowData,rowIndex: number) => void
+    }): DataTableColumns<RowData> => {
+      return [
+        {
+          title: 'Label',
+          key: 'label',
+        },
+        {
+          title: 'Value',
+          key: 'value',
+        },
+        {
+          title: '操作',
+          key: 'action',
+          render(row,index) {
+            return h(NSpace, {}, [
+              h(NButton, {strong: true, tertiary: true, size: 'small',text:true,type:'primary', onClick: () => edit(row,index)}, {default: () => '编辑'}),
+              h(NButton, {strong: true, tertiary: true, size: 'small',text:true,type:'primary', onClick: () => add(row,index)}, {default: () => '添加下级'}),
+              h(NButton, {strong: true, tertiary: true, size: 'small',text:true,type:'error', onClick: () => remove(row,index)}, {default: () => '删除'})
+            ])
+          }
+        }
+      ]
+    }
+    const addTreeData = ()=>{
+      state.treeData = {
+        key: v4().replaceAll('-', ''),
+        label:'',
+        value:'',
+        children:[]
+      }
+      state.showTreeDataDriwer=true
+    }
     const state = reactive({
       verifyOptions:[
         {label:'字符串',value:'string'},
@@ -727,16 +960,67 @@ export default defineComponent({
         {label:'十六进制',value:'hex'},
         {label:'邮箱地址',value:'email'},
         {label:'任意类型',value:'any'},
-      ]
+      ],
+      colorPlacementOptions:[
+        {label:'top-start',value:'top-start'},
+        {label:'top',value:'top'},
+        {label:'top-end',value:'top-end'},
+        {label:'right-start',value:'right-start'},
+        {label:'right',value:'right'},
+        {label:'right-end',value:'right-end'},
+        {label:'bottom-start',value:'bottom-start'},
+        {label:'bottom',value:'bottom'},
+        {label:'bottom-end',value:'bottom-end'},
+        {label:'left-start',value:'left-start'},
+        {label:'left',value:'left'},
+        {label:'left-end',value:'left-end'},
+      ],
+      showTreeDataType:'add',
+      showTreeDataDriwer:false,
+      treeData:{},
+      treeRules: {
+        label: {
+          required: true,
+          message: '请输入',
+          trigger: ['input', 'blur']
+        },
+        value: {
+          required: true,
+          message: '请输入',
+          trigger: ['input', 'blur']
+        }
+      },
+      treeDataColumns: treeDataColumns({
+        add (rowData) {
+          state.treeData = {
+            parent:rowData,
+            key: v4().replaceAll('-', ''),
+            label:'',
+            value:'',
+            children:[]
+          }
+          state.showTreeDataDriwer=true
+          state.showTreeDataType='add'
+        },
+        edit (rowData,rowIndex) {
+          state.treeData = Object.assign({},rowData)
+          state.showTreeDataDriwer=true
+          state.showTreeDataType='edit'
+        },
+        remove (rowData,rowIndex) {
+          if (rowData.parent){
+            rowData.parent.children.forEach((v,i)=>{
+              if (v.key===rowData.key){
+                rowData.parent.children.splice(i,1)
+              }
+            })
+          }else {
+            data.value.options.options.splice(rowIndex,1)
+          }
+        }
+      }),
+      rowKey: (row: RowData) => row.value
     })
-
-    watch(
-      () => props.select,
-      val => (data.value = val)
-    )
-
-    watch(data, val => context.emit('update:select', val))
-
     const hasKey = (key: string) =>
       Object.keys(data.value.options).includes(key)
 
@@ -765,12 +1049,14 @@ export default defineComponent({
 
     const handleSelectModeChange = (event: any) => {
       const { value } = event.target
-      if (value === null) {
+      if (value!=='true') {
+        data.value.options.rules.type='string'
         data.value.options.defaultValue.length
           ? (data.value.options.defaultValue =
               data.value.options.defaultValue[0])
           : (data.value.options.defaultValue = null)
       } else {
+        data.value.options.rules.type='array'
         if (data.value.options.defaultValue) {
           if (!(data.value.options.defaultValue instanceof Array)) {
             data.value.options.defaultValue = [data.value.options.defaultValue]
@@ -803,9 +1089,34 @@ export default defineComponent({
           break
       }
     }
-
+    const submitTreeData = (e: MouseEvent)=> {
+      e.preventDefault()
+      treeDataFormRef.value?.validate((errors) => {
+        if (!errors) {
+          if (state.treeData.parent){
+            if (state.showTreeDataType==='add'){
+              state.treeData.parent.children.push(state.treeData)
+            }else {
+              state.treeData.parent.children.forEach((v,i)=>{
+                if (v.key===state.treeData.key){
+                  state.treeData.parent.children.splice(i,1,state.treeData)
+                }
+              })
+            }
+          }else{
+            data.value.options.options.push(state.treeData)
+          }
+          state.showTreeDataDriwer=false
+        } else {
+          console.log(errors)
+        }
+      })
+    }
     return {
       ...toRefs(state),
+      treeDataFormRef,
+      addTreeData,
+      submitTreeData,
       data,
       hasKey,
       handleInsertColumn,

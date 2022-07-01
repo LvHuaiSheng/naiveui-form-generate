@@ -167,12 +167,36 @@
           :style="{ width: element.options.width,height: element.options.height }"
       />
     </template>
+    <template v-if="element.type === 'selectTree'">
+      <n-tree-select
+          v-model:value="data"
+          :options="element.options.options"
+          :placeholder="element.options.placeholder"
+          :size="config.size"
+          :multiple="element.options.multiple"
+          :filterable="element.options.filterable"
+          :check-strategy="element.options.checkStrategy"
+          :clearable="element.options.allowClear"
+          :label-field="element.options.props.label"
+          :key-field="element.options.props.value"
+          :disabled="disabled || element.options.disabled"
+          :style="{ width: element.options.width }"
+      />
+    </template>
+    <template v-if="element.type === 'color'">
+      <n-color-picker v-model:value="data"
+                      :size="config.size"
+                      :modes="element.options.modes"
+                      :disabled="disabled || element.options.disabled"
+                      :style="{ width: element.options.width }"/>
+    </template>
 
     <template v-if="element.type == 'text'">
       <div :style="{ width: element.options.width,height:element.options.height }">
         <span>{{ element.options.defaultValue }}</span>
       </div>
     </template>
+
     <template v-if="element.type === 'alert'">
       <n-alert :title="element.options.title"
                :type="element.options.type"
@@ -183,11 +207,34 @@
       </n-alert>
     </template>
 
-    <template v-if="element.type === 'img-upload'">
-      <a-upload
+    <template v-if="element.type === 'transfer'">
+      <n-transfer v-model:value="data"
+                  :size="config.size"
+                  :filterable="element.options.filterable"
+                  :disabled="disabled || element.options.disabled"
+                  :source-title="element.options.sourceTitle"
+                  :target-title="element.options.targetTitle"
+                  :virtual-scroll="element.options.virtualScroll"
+                  :options="element.options.options"
+                  :style="{ width: element.options.width }"
+      />
+    </template>
+
+    <template v-if="element.type === 'upload'">
+      <n-upload
         :name="element.options.file"
         :action="element.options.action"
         :accept="element.options.accept"
+        :max="element.options.maxCount"
+        :defaultUpload="element.options.defaultUpload"
+        :directory="element.options.directory"
+        :directoryDnd="element.options.directoryDnd"
+        :showDownloadButton="element.options.showDownloadButton"
+        :showFileList="element.options.showFileList"
+        :showRetryButton="element.options.showRetryButton"
+        :showRemoveButton="element.options.showRemoveButton"
+        :showCancelButton="element.options.showCancelButton"
+        :showPreviewButton="element.options.showPreviewButton"
         :file-list="data"
         :listType="element.options.listType"
         :multiple="element.options.multiple"
@@ -195,14 +242,14 @@
         @change="handleUploadChange"
       >
         <SvgIcon
-          v-if="element.options.listType === 'picture-card'"
+          v-if="element.options.listType === 'image-card'"
           iconClass="insert"
         />
-        <a-button v-else>
+        <n-button v-else>
           <SvgIcon iconClass="img-upload" style="margin-right: 10px;" />
           点击上传
-        </a-button>
-      </a-upload>
+        </n-button>
+      </n-upload>
     </template>
 
     <template v-if="element.type === 'richtext-editor'">

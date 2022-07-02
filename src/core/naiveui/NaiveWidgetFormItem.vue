@@ -274,7 +274,14 @@
         />
       </template>
       <template v-if="element.type === 'table'">
-        <n-table :bordered="false" :single-line="false">
+        <n-table :size="config.size"
+                 :class="'table-'+element.options.theme"
+                 :bordered="element.options.bordered"
+                 :bottom-bordered="element.options.bottomBordered"
+                 :single-column="element.options.singleColumn"
+                 :single-line="element.options.singleLine"
+                 :striped="element.options.striped"
+                 :style="{ width: element.options.width,height: element.options.height }">
           <thead>
           <tr>
             <th>Abandon</th>

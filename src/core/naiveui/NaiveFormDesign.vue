@@ -222,7 +222,6 @@ export default defineComponent({
         'select',
         'switch',
         'slider',
-        'text',
         'color',
       ]
     },

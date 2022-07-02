@@ -2,17 +2,21 @@
   <div class="form-config-container">
     <n-form >
       <n-form-item label="表单布局">
-        <n-radio-group v-model:value="data.inline">
-          <n-radio-button :value="false" label="默认"/>
-          <n-radio-button :value="true">
-            <n-tooltip trigger="hover">
-              <template #trigger>
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <n-switch
+                v-model:value="data.inline"
+            >
+              <template #checked>
                 行内表单
               </template>
-              推荐使用【栅格布局】实现行内表单
-            </n-tooltip>
-          </n-radio-button>
-        </n-radio-group>
+              <template #unchecked>
+                默认
+              </template>
+            </n-switch>
+          </template>
+          推荐使用【栅格布局】实现行内表单
+        </n-tooltip>
       </n-form-item>
       <n-form-item label="标签显示位置">
         <n-radio-group v-model:value="data.labelPlacement" button-style="solid" @change="changeLabelPlacement" >

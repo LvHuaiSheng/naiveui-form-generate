@@ -308,36 +308,45 @@ export const advanceComponents = [
       },
       options: [
         {
-          id:'1',
+          index: 0,
+          parentKey:null,
+          key:'1',
           label: 'Option 1',
           value: 'Option 1',
           children:[
             {
-              id:'1-1',
+              parentKey: '1',
+              key:'1-1',
               label: '1-1',
               value: '1-1',
             }
           ],
         },
         {
-          id:'2',
+          index: 1,
+          parentKey: null,
+          key:'2',
           label: 'Option 2',
           value: 'Option 2',
           children:[
             {
-              id:'2-1',
+              parentKey: '2',
+              key:'2-1',
               label: '2-1',
               value: '2-1',
             }
           ],
         },
         {
-          id:'3',
+          index: 2,
+          parentKey: null,
+          key:'3',
           label: 'Option 3',
           value: 'Option 3',
           children:[
             {
-              id:'3-1',
+              parentKey: '3',
+              key:'3-1',
               label: '3-1',
               value: '3-1',
             }
@@ -380,7 +389,8 @@ export const advanceComponents = [
     options: {
       defaultValue: '',
       width: '',
-      disabled: false
+      disabled: false,
+      rules:getRules('string')
     }
   },
   {
@@ -408,6 +418,7 @@ export const advanceComponents = [
           value: 'Option 3'
         }
       ],
+      rules:getRules('array')
     }
   },
   {
@@ -484,6 +495,15 @@ export const advanceComponents = [
     dev:true,
     options: {
       defaultValue: 'This is a table',
+      theme:'default',
+      width:'210mm',
+      height:'297mm',
+      disabled: false,
+      bordered:true,
+      bottomBordered:false,
+      singleColumn:false,
+      singleLine:false,
+      striped:false,
     }
   },
   {

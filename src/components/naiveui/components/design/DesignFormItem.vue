@@ -287,7 +287,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import SvgIcon from '@/components/SvgIcon.vue'
+import SvgIcon from '../../../../components/SvgIcon.vue'
 import RichTextEditor from '../custom/RichTextEditor.vue'
 import { WidgetForm } from '../../config/naiveui'
 

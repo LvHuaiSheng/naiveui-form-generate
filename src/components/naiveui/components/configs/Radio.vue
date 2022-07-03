@@ -66,7 +66,7 @@
 <script lang="ts">
 import {defineComponent, ref, watch} from 'vue'
 import Draggable from 'vuedraggable'
-import SvgIcon from "@/components/SvgIcon.vue";
+import SvgIcon from '../../../../components/SvgIcon.vue'
 export default defineComponent({
   components:{
     Draggable,

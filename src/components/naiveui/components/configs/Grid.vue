@@ -36,7 +36,7 @@
 </template>
 <script lang="ts">
 import {defineComponent, ref, watch} from 'vue'
-import SvgIcon from '@/components/SvgIcon.vue'
+import SvgIcon from '../../../../components/SvgIcon.vue'
 export default defineComponent({
   name: 'GridWidget',
   components:{

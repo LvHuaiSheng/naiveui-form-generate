@@ -109,7 +109,7 @@ import { defineComponent, nextTick, PropType } from 'vue'
 import Draggable from 'vuedraggable'
 import { v4 } from 'uuid'
 import DesignFormItem from './DesignFormItem.vue'
-import SvgIcon from '@/components/SvgIcon.vue'
+import SvgIcon from '../../../../components/SvgIcon.vue'
 import { WidgetForm } from '../../config/naiveui'
 import GTable from '../custom/table/GTable.vue'
 const handleListInsert = (key: string, list: any[], obj: any) => {

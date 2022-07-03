@@ -114,7 +114,7 @@
 <script lang="ts">
 import {defineComponent, h, reactive, ref, watch,toRefs} from 'vue'
 import Draggable from 'vuedraggable'
-import SvgIcon from "@/components/SvgIcon.vue";
+import SvgIcon from '../../../../components/SvgIcon.vue'
 import {RowData} from "../../types/NaiveWidgetTypes";
 import {DataTableColumns, FormInst, NButton, NSpace} from "naive-ui";
 import {v4} from "uuid";

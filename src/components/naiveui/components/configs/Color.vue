@@ -75,7 +75,7 @@
 </template>
 <script lang="ts">
 import {defineComponent, reactive, ref, toRefs, watch} from 'vue'
-import SvgIcon from '@/components/SvgIcon.vue'
+import SvgIcon from '../../../../components/SvgIcon.vue'
 export default defineComponent({
   name: 'InputWidget',
   components:{

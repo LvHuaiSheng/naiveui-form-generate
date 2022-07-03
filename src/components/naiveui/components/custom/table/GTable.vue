@@ -88,7 +88,7 @@ import {computed, defineComponent, PropType, reactive, ref, toRefs, watch} from 
 import {WidgetForm} from "../../../config/naiveui";
 import Draggable from 'vuedraggable'
 import { merge } from 'lodash'
-import SvgIcon from '@/components/SvgIcon.vue'
+import SvgIcon from '../../../../../components/SvgIcon.vue'
 import {naiveui} from "../../../config";
 import GenerateFormItem from '../../generate/GenerateFormItem.vue'
 import {v4} from "uuid";

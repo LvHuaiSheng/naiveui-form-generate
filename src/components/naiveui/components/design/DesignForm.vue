@@ -50,7 +50,7 @@
                   >
                     <template #item="{ element, index }">
                       <transition-group name="fade" tag="div">
-                        <NaiveWidgetFormItem
+                        <DesignFormItem
                             v-if="element.key"
                             :key="element.key"
                             :element="element"
@@ -82,8 +82,11 @@
                 </n-gi>
               </n-grid>
             </template>
+            <template v-else-if="element.type === 'table'">
+              <g-table :element="element" :widgetForm="widgetForm" :widgetFormSelect="widgetFormSelect"/>
+            </template>
             <template v-else>
-              <NaiveWidgetFormItem
+              <DesignFormItem
                 v-if="element.key"
                 :key="element.key"
                 :element="element"
@@ -105,10 +108,10 @@
 import { defineComponent, nextTick, PropType } from 'vue'
 import Draggable from 'vuedraggable'
 import { v4 } from 'uuid'
-import NaiveWidgetFormItem from './NaiveWidgetFormItem.vue'
-import SvgIcon from '../../components/SvgIcon.vue'
+import DesignFormItem from './DesignFormItem.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
 import { WidgetForm } from '../../config/naiveui'
-
+import GTable from '../custom/table/GTable.vue'
 const handleListInsert = (key: string, list: any[], obj: any) => {
   const newList: any[] = []
   list.forEach(item => {
@@ -149,7 +152,8 @@ export default defineComponent({
   components: {
     SvgIcon,
     Draggable,
-    NaiveWidgetFormItem
+    DesignFormItem,
+    GTable
   },
   props: {
     widgetForm: {
@@ -301,13 +305,59 @@ export default defineComponent({
 
       context.emit('update:widgetFormSelect', row.columns[index].list[newIndex])
     }
+    const handleTdMoveAdd = (
+      event: any,
+      row: any,
+      index: string | number | symbol,
+      tdIndex: string | number | symbol
+    ) => {
+      console.log('row.columns[index]=',JSON.stringify(row.columns[index]))
+      console.log('row.columns[index]222=',JSON.stringify(row.columns[index][tdIndex]))
+
+      const { newIndex, oldIndex, item } = event
+      const list = JSON.parse(JSON.stringify(props.widgetForm.list[index]))
+
+      if (item.className.includes('data-grid')) {
+        item.tagName === 'DIV' &&
+          list.splice(oldIndex, 0, row.columns[index][tdIndex].list[newIndex])
+        row.columns[index][tdIndex].list.splice(newIndex, 1)
+        return false
+      }
+
+      const key = v4().replaceAll('-', '')
+
+      row.columns[index][tdIndex].list[newIndex] = {
+        ...row.columns[index][tdIndex].list[newIndex],
+        key,
+        model: `${row.columns[index][tdIndex].list[newIndex].type}_${key}`,
+        rules: []
+      }
+
+      if (
+        row.columns[index][tdIndex].list[newIndex].type === 'radio' ||
+        row.columns[index][tdIndex].list[newIndex].type === 'checkbox' ||
+        row.columns[index][tdIndex].list[newIndex].type === 'select'
+      ) {
+        row.columns[index][tdIndex].list[newIndex] = {
+          ...row.columns[index][tdIndex].list[newIndex],
+          options: {
+            ...row.columns[index][tdIndex].list[newIndex].options,
+            options: row.columns[index][tdIndex].list[
+              newIndex
+            ].options.options.map((item: any) => ({ ...item }))
+          }
+        }
+      }
+      context.emit('update:widgetFormSelect', row.columns[index][tdIndex].list[newIndex])
+    }
 
     return {
       handleItemClick,
       handleCopyClick,
       handleDeleteClick,
       handleMoveAdd,
-      handleColMoveAdd
+      handleColMoveAdd,
+      handleTdMoveAdd,
     }
   }
 })

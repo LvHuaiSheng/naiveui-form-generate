@@ -18,5 +18,10 @@ export default defineConfig({
          * @default '/'
          */
         base: '/naiveui-form-generate',
+        resolve: {
+            alias: {
+                '@/': '/src/'
+            }
+        },
     },
 )

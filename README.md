@@ -2,7 +2,10 @@
 
 <p align="center">基于naiveui、typescript的表单生成器，支持复杂表格Tree等常用组件</p>
 <p align="center">
-  <a href="./LICENSE"><img allt="MIT License" src="https://badgen.net/github/license/zclzone/vue-naive-admin"/></a>
+  <a href="./LICENSE"><img allt="MIT License" src="https://badgen.net/badge/license/MIT/blue"/></a>
+  <a href="./LICENSE"><img allt="MIT License" src="https://badgen.net/badge/naive-ui/^2.30.6/green"/></a>
+  <a href="./LICENSE"><img allt="MIT License" src="https://badgen.net/badge/vue/^3.2.25/green"/></a>
+  <a href="./LICENSE"><img allt="MIT License" src="https://badgen.net/badge/vite/^2.9.9/green"/></a>
 </p>
 
 

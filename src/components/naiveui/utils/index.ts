@@ -5,7 +5,6 @@ export function isExternal(path: string) {
 
 // 复制文本
 export function copy(text: string) {
-  debugger
   const input = document.createElement('textarea')
   input.value = text
   document.body.appendChild(input)

@@ -276,12 +276,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import SvgIcon from '../../components/SvgIcon.vue'
-import RichTextEditor from '../../components/RichTextEditor.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
+import RichTextEditor from '../custom/RichTextEditor.vue'
 import { WidgetForm } from '../../config/naiveui'
 
 export default defineComponent({
-  name: 'NaiveGenerateFormItem',
+  name: 'GenerateFormItem',
   components: {
     SvgIcon,
     RichTextEditor
@@ -306,6 +306,7 @@ export default defineComponent({
   },
   setup(props) {
     const data = computed({
+      // get: () => 1,
       get: () => props.model[props.element.model],
       set: val => {
         // eslint-disable-next-line vue/no-mutating-props

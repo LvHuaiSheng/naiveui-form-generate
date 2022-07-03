@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import { WidgetForm } from '../../config/naiveui'
+import { WidgetForm } from '../config/naiveui'
 import {defineComponent, PropType, reactive, ref, toRefs, watch} from 'vue'
 
 export default defineComponent({

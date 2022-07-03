@@ -27,17 +27,17 @@
       </n-layout-sider>
       <n-layout >
         <NaiveHeader style="height: 42px;line-height: 50px;border-bottom: 1px solid #e4e7ed;text-align: right;padding: 0 10px;"
-            v-bind="$props"
-            @preview="() => (previewVisible = true)"
-            @uploadJson="() => (uploadJsonVisible = true)"
-            @generateJson="handleGenerateJson"
-            @generateCode="handleGenerateCode"
-            @clearable="handleClearable"
+                     v-bind="$props"
+                     @preview="() => (previewVisible = true)"
+                     @uploadJson="() => (uploadJsonVisible = true)"
+                     @generateJson="handleGenerateJson"
+                     @generateCode="handleGenerateCode"
+                     @clearable="handleClearable"
         >
           <slot name="header"></slot>
         </NaiveHeader>
         <n-layout has-sider position="absolute" style="top: 45px;">
-          <NaiveWidgetForm
+          <DesignForm
               ref="widgetFormRef"
               v-model:widgetForm="widgetForm"
               v-model:widgetFormSelect="widgetFormSelect"
@@ -61,7 +61,7 @@
           </n-tabs>
         </n-layout-header>
         <n-layout-content class="config-content">
-          <NaiveWidgetConfig
+          <DesignConfig
               v-show="configTab === 'widget'"
               v-model:select="widgetFormSelect"
           />
@@ -88,11 +88,11 @@
       <CodeEditor v-model:value="jsonEg" language="json" />
     </n-modal>
     <n-modal v-model:show="previewVisible" preset="dialog" title="预览" style="width: 800px">
-<!--      <template #header>-->
-<!--        <div>标题</div>-->
-<!--      </template>-->
+      <!--      <template #header>-->
+      <!--        <div>标题</div>-->
+      <!--      </template>-->
       <div>
-        <NaiveGenerateForm
+        <GenerateForm
             style="margin-top: 20px"
             ref="generateFormRef"
             :data="widgetForm"
@@ -164,28 +164,27 @@
 import { defineComponent, reactive, PropType, toRefs, watchEffect } from 'vue'
 import { useMessage } from 'naive-ui'
 import { merge } from 'lodash'
-import CodeEditor from '../../components/CodeEditor.vue'
-import ComponentGroup from '../../components/ComponentGroup.vue'
-import NaiveHeader from './NaiveHeader.vue'
-import NaiveWidgetForm from './NaiveWidgetForm.vue'
-import NaiveGenerateForm from './NaiveGenerateForm.vue'
-import NaiveWidgetConfig from './NaiveWidgetConfig.vue'
-import NaiveFormConfig from './NaiveFormConfig.vue'
-import { naiveui } from '../../config'
-import { copy } from '../../utils'
-import { CodeType, PlatformType } from '../../enums'
-import generateCode from '../../utils/generateCode'
-import { WidgetForm } from '../../config/naiveui'
+import CodeEditor from './components/CodeEditor.vue'
+import ComponentGroup from './components/ComponentGroup.vue'
+import NaiveHeader from './components/NaiveHeader.vue'
+import DesignForm from './components/design/DesignForm.vue'
+import GenerateForm from './components/generate/GenerateForm.vue'
+import DesignConfig from './components/design/DesignConfig.vue'
+import NaiveFormConfig from './components/NaiveFormConfig.vue'
+import { naiveui } from './config'
+import { copy } from './utils'
+import { CodeType, PlatformType } from './enums'
+import generateCode from './utils/generateCode'
 
 export default defineComponent({
-  name: 'DesignForm',
+  name: 'FormDesign',
   components: {
     NaiveHeader,
     ComponentGroup,
     CodeEditor,
-    NaiveWidgetForm,
-    NaiveGenerateForm,
-    NaiveWidgetConfig,
+    DesignForm,
+    GenerateForm,
+    DesignConfig,
     NaiveFormConfig
   },
   props: {
@@ -232,7 +231,6 @@ export default defineComponent({
         'richtext-editor',
         'cascader',
         'tree',
-        'table',
         'dynamicTable',
         'selectTree',
         'transfer',
@@ -240,7 +238,7 @@ export default defineComponent({
     },
     layoutFields: {
       type: Array as PropType<Array<string>>,
-      default: () => ['grid']
+      default: () => ['grid','table',]
     },
     otherFields: {
       type: Array as PropType<Array<string>>,
@@ -323,7 +321,7 @@ export default defineComponent({
 
     const getJson = () => state.widgetForm
 
-    const setJson = (json: WidgetForm) => {
+    const setJson = (json: naiveui.WidgetForm) => {
       state.widgetForm.list = []
       merge(state.widgetForm, json)
       if (json.list.length) {

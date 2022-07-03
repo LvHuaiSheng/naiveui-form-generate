@@ -1,4 +1,5 @@
 <template>
+
   <n-form layout="vertical" v-if="data" :key="data.key">
     <n-form-item label="字段标识" v-if="data.type !== 'grid'">
       <n-input v-model:value="data.model" />
@@ -19,10 +20,8 @@
     <n-form-item label="占位内容" v-if="hasKey('placeholder')">
       <n-input v-model:value="data.options.placeholder" />
     </n-form-item>
-    <div v-if="data.type">
 
-    </div>
-    <component  v-if="checkComponent(data.type)" :is="data.type+'Widget'" :select="data"/>
+    <component  v-if="checkComponent(data.type)" :is="data.type" :select="data"/>
     <template v-if="hasKey('rules')">
       <h4>验证规则</h4>
 
@@ -58,49 +57,51 @@
 <script lang="ts">
 import {h, defineComponent, reactive, ref, toRefs, watch, onMounted} from 'vue'
 import Draggable from 'vuedraggable'
-import InputWidget from './widget/InputWidget.vue'
-import NumberWidget from './widget/NumberWidget.vue'
-import RadioWidget from './widget/RadioWidget.vue'
-import CheckboxWidget from './widget/CheckboxWidget.vue'
-import TimeWidget from './widget/TimeWidget.vue'
-import DateWidget from './widget/DateWidget.vue'
-import RateWidget from './widget/RateWidget.vue'
-import SelectWidget from './widget/SelectWidget.vue'
-import SwitchWidget from './widget/SwitchWidget.vue'
-import SliderWidget from './widget/SliderWidget.vue'
-import ColorWidget from './widget/ColorWidget.vue'
-import SelectTreeWidget from './widget/SelectTreeWidget.vue'
-import UploadWidget from './widget/UploadWidget.vue'
-import RichtextEditorWidget from './widget/RichtextEditorWidget.vue'
-import TransferWidget from './widget/TransferWidget.vue'
-import TableWidget from './widget/TableWidget.vue'
-import SvgIcon from '../../components/SvgIcon.vue'
+import Input from '../configs/Input.vue'
+import Number from '../configs/Number.vue'
+import Radio from '../configs/Radio.vue'
+import Checkbox from '../configs/Checkbox.vue'
+import Time from '../configs/Time.vue'
+import Date from '../configs/Date.vue'
+import Rate from '../configs/Rate.vue'
+import Select from '../configs/Select.vue'
+import Switch from '../configs/Switch.vue'
+import Slider from '../configs/Slider.vue'
+import Color from '../configs/Color.vue'
+import SelectTree from '../configs/SelectTree.vue'
+import Upload from '../configs/Upload.vue'
+import RichtextEditor from '../configs/RichtextEditor.vue'
+import Transfer from '../configs/Transfer.vue'
+import Grid from '../configs/Grid.vue'
+import Table from '../configs/Table.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
 import { NSpace,NButton,NInput, useMessage,FormInst } from 'naive-ui'
 import { v4 } from 'uuid'
 import {ComponentType,checkComponent} from '../../enums'
-import type {RowData} from './types/NaiveWidgetTypes'
+import type {RowData} from '../../types/NaiveWidgetTypes'
 import type { DataTableColumns } from 'naive-ui'
 export default defineComponent({
-  name: 'NaiveWidgetConfig',
+  name: 'DesignConfig',
   components: {
     Draggable,
     SvgIcon,
-    InputWidget,
-    NumberWidget,
-    RadioWidget,
-    CheckboxWidget,
-    TimeWidget,
-    DateWidget,
-    RateWidget,
-    SelectWidget,
-    SwitchWidget,
-    SliderWidget,
-    ColorWidget,
-    SelectTreeWidget,
-    UploadWidget,
-    RichtextEditorWidget,
-    TransferWidget,
-    TableWidget,
+    Input,
+    Number,
+    Radio,
+    Checkbox,
+    Time,
+    Date,
+    Rate,
+    Select,
+    Switch,
+    Slider,
+    Color,
+    SelectTree,
+    Upload,
+    RichtextEditor,
+    Transfer,
+    Grid,
+    Table,
   },
   props: {
     select: {

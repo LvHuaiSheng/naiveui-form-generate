@@ -25,6 +25,7 @@ export enum ComponentType {
   Cascader = 'cascader',
   Tree = 'tree',
   Table = 'table',
+  Grid = 'grid',
   DynamicTable = 'dynamicTable',
   SelectTree = 'selectTree',
   Transfer = 'transfer',

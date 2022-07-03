@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import * as utils from '../utils'
+import * as utils from './naiveui/utils'
 
 export default defineComponent({
   name: 'SvgIcon',

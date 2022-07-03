@@ -1,12 +1,8 @@
 <template>
-  <n-form-item label="模式">
-    <n-radio-group
-        button-style="solid"
-        v-model:value="data.options.multiple"
-        @change="handleSelectModeChange"
-    >
-      <n-radio-button :value="false">单选</n-radio-button>
-      <n-radio-button :value="true">多选</n-radio-button>
+  <n-form-item label="布局方式">
+    <n-radio-group button-style="solid" v-model:value="data.options.groupType">
+      <n-radio-button value="radioGroup">单选组</n-radio-button>
+      <n-radio-button value="buttonGroup">按钮组</n-radio-button>
     </n-radio-group>
   </n-form-item>
   <n-form-item label="选项">
@@ -37,21 +33,7 @@
         </n-input-group>
       </n-space>
       <template v-else>
-        <n-checkbox-group v-if="data.options.multiple" v-model:value="data.options.defaultValue" style="margin-top: 10px;">
-          <n-dynamic-input v-model:value="data.options.options" :on-create="handleInsertOption" show-sort-button>
-            <template #default="{ value }">
-              <div style="display: flex; align-items: center; width: 100%">
-                <n-checkbox
-                    :value="value.value"
-                    style="margin-right: 5px"
-                />
-                <n-input v-model:value="value.label" type="text" style="margin-right: 12px; width: 160px"/>
-                <n-input v-model:value="value.value" type="text" />
-              </div>
-            </template>
-          </n-dynamic-input>
-        </n-checkbox-group>
-        <n-radio-group v-else v-model:value="data.options.defaultValue" style="margin-top: 10px;">
+        <n-radio-group v-model:value="data.options.defaultValue" style="margin-top: 10px;">
           <n-dynamic-input v-model:value="data.options.options" :on-create="handleInsertOption" show-sort-button>
             <template #default="{ value }">
               <div style="display: flex; align-items: center; width: 100%">
@@ -65,6 +47,7 @@
             </template>
           </n-dynamic-input>
         </n-radio-group>
+
       </template>
     </div>
   </n-form-item>
@@ -78,16 +61,12 @@
         v-model:checked="data.options.disabled"
     >禁用
     </n-checkbox>
-    <n-checkbox
-        v-model:checked="data.options.allowClear"
-    >清除
-    </n-checkbox>
   </n-form-item>
 </template>
 <script lang="ts">
 import {defineComponent, ref, watch} from 'vue'
 import Draggable from 'vuedraggable'
-import SvgIcon from "../../../components/SvgIcon.vue";
+import SvgIcon from "@/components/SvgIcon.vue";
 export default defineComponent({
   components:{
     Draggable,
@@ -123,30 +102,11 @@ export default defineComponent({
         data.value.options.options.splice(index, 1)
       }
     }
-    const handleSelectModeChange = (event: any) => {
-      const { value } = event.target
-      if (value!=='true') {
-        data.value.options.rules.type='string'
-        data.value.options.defaultValue.length
-            ? (data.value.options.defaultValue =
-                data.value.options.defaultValue[0])
-            : (data.value.options.defaultValue = null)
-      } else {
-        data.value.options.rules.type='array'
-        if (data.value.options.defaultValue) {
-          if (!(data.value.options.defaultValue instanceof Array)) {
-            data.value.options.defaultValue = [data.value.options.defaultValue]
-          }
-        } else {
-          data.value.options.defaultValue = []
-        }
-      }
-    }
+
     return {
       data,
       handleInsertOption,
       handleOptionsRemove,
-      handleSelectModeChange,
     }
   }
 })

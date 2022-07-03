@@ -490,23 +490,6 @@ export const advanceComponents = [
     }
   },
   {
-    label: '静态表格',
-    type: 'table',
-    dev:true,
-    options: {
-      defaultValue: 'This is a table',
-      theme:'default',
-      width:'210mm',
-      height:'297mm',
-      disabled: false,
-      bordered:true,
-      bottomBordered:false,
-      singleColumn:false,
-      singleLine:false,
-      striped:false,
-    }
-  },
-  {
     label: '动态表格',
     type: 'dynamicTable',
     dev:true,
@@ -566,5 +549,263 @@ export const layoutComponents = [
       justify: 'start',
       align: 'top'
     }
-  }
+  },
+  {
+    label: '静态表格',
+    type: 'table',
+    columns: [
+      [
+        {
+          col:1,
+          row:1,
+          hide:false,
+          list: []
+        },
+        {
+          col:1,
+          row:1,
+          hide:false,
+          list: []
+        }
+      ]
+    ],
+    options: {
+      theme:'theme1',
+      width:'210mm',
+      height:'297mm',
+      cols:24,
+      xGap: 0,
+      yGap: 0,
+      collapsed: false,
+      collapsedRows: 1,
+      responsive: 'self',
+      itemResponsive: false,
+      justify: 'start',
+      align: 'top'
+    }
+  },
+  // {
+  //   label: '静态表格',
+  //   type: 'table',
+  //   dev:true,
+  //   options: {
+  //     defaultValue: 'This is a table',
+  //     theme:'theme1',
+  //     width:'210mm',
+  //     height:'297mm',
+  //     disabled: false,
+  //     bordered:true,
+  //     bottomBordered:false,
+  //     singleColumn:false,
+  //     singleLine:false,
+  //     striped:false,
+  //     layoutArray:[
+  //       [
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "list": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "list": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         }
+  //       ],
+  //       [
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "list": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "list": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         }
+  //       ],
+  //       [
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         }
+  //       ],
+  //       [
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         }
+  //       ],
+  //       [
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         }
+  //       ],
+  //       [
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         }
+  //       ],
+  //       [
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         }
+  //       ],
+  //       [
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         },
+  //         {
+  //           "col": 1,
+  //           "row": 1,
+  //           "hide": false,
+  //           "columns": []
+  //         }
+  //       ],
+  //
+  //     ],
+  //   }
+  // },
 ]

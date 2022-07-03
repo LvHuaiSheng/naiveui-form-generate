@@ -273,45 +273,6 @@
           :style="{ width: element.options.width }"
         />
       </template>
-      <template v-if="element.type === 'table'">
-        <n-table :size="config.size"
-                 :class="'table-'+element.options.theme"
-                 :bordered="element.options.bordered"
-                 :bottom-bordered="element.options.bottomBordered"
-                 :single-column="element.options.singleColumn"
-                 :single-line="element.options.singleLine"
-                 :striped="element.options.striped"
-                 :style="{ width: element.options.width,height: element.options.height }">
-          <thead>
-          <tr>
-            <th>Abandon</th>
-            <th>Abormal</th>
-            <th>Abolish</th>
-            <th>...</th>
-            <th>万事开头难</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>放弃</td>
-            <td>反常的</td>
-            <td>彻底废除</td>
-            <td>...</td>
-            <td>干！我刚才背的是啥</td>
-          </tr>
-          <tr>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-          </tr>
-          </tbody>
-        </n-table>
-      </template>
-      <template v-if="element.type === 'transfer'">
-
-      </template>
     </n-form-item>
     <div class="widget-view-action" v-if="selectWidget?.key === element.key">
       <SvgIcon iconClass="copy" @click.stop="$emit('copy')" />
@@ -326,15 +287,15 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import SvgIcon from '../../components/SvgIcon.vue'
-import RichTextEditor from '../../components/RichTextEditor.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
+import RichTextEditor from '../custom/RichTextEditor.vue'
 import { WidgetForm } from '../../config/naiveui'
 
 export default defineComponent({
   name: 'NaiveWidgetFormItem',
   components: {
     SvgIcon,
-    RichTextEditor
+    RichTextEditor,
   },
   props: {
     config: {

@@ -24,7 +24,7 @@
               :item-responsive="element.options.itemResponsive"
           >
             <n-gi v-for="(col, colIndex) of element.columns" :key="colIndex" :span="col.span ?? 0">
-              <NaiveGenerateFormItem
+              <GenerateFormItem
                 v-for="colItem of col.list"
                 :model="model"
                 :key="colItem.key"
@@ -35,7 +35,7 @@
             </n-gi>
           </n-grid>
         </template>
-        <NaiveGenerateFormItem
+        <GenerateFormItem
           v-else
           :model="model"
           :key="element.key"
@@ -51,13 +51,13 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs, watch,ref  } from 'vue'
 import { FormInst,useMessage } from 'naive-ui'
-import NaiveGenerateFormItem from './NaiveGenerateFormItem.vue'
+import GenerateFormItem from './GenerateFormItem.vue'
 import { naiveui } from '../../config'
 
 export default defineComponent({
   name: 'GenerateForm',
   components: {
-    NaiveGenerateFormItem
+    GenerateFormItem
   },
   props: {
     data: {

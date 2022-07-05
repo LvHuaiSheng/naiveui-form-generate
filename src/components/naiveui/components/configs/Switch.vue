@@ -9,6 +9,13 @@
   <n-form-item label="非选中时的内容">
     <n-input v-model:value="data.options.unCheckedChildren" />
   </n-form-item>
+  <n-form-item
+      label="显示属性">
+    <n-checkbox
+        v-model:checked="data.options.showLabel"
+    >显示标签
+    </n-checkbox>
+  </n-form-item>
   <n-form-item label="操作属性">
     <n-checkbox
         v-model:checked="data.options.rules.required"

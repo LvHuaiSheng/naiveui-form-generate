@@ -1,18 +1,18 @@
 
 <template>
-  <table v-if="element.key"
-         :key="element.key"
-         :class="(widgetFormSelect?.key === element.key?'active':'') +' table-'+element.options.theme"
-         :bordered="element.options.bordered"
-         :bottom-bordered="element.options.bottomBordered"
-         :single-column="element.options.singleColumn"
-         :single-line="element.options.singleLine"
-         :striped="element.options.striped"
-         :style="{ width: element.options.width,height: element.options.height }"
-         @click="handleItemClick(element)"
+  <table v-if="data.key"
+         :key="data.key"
+         :class="(widgetFormSelect?.key === data.key?'active':'') +' table-'+data.options.theme"
+         :bordered="data.options.bordered"
+         :bottom-bordered="data.options.bottomBordered"
+         :single-column="data.options.singleColumn"
+         :single-line="data.options.singleLine"
+         :striped="data.options.striped"
+         :style="{ width: data.options.width,height: data.options.height }"
+         @click="handleItemClick(data)"
          class="widget-col widget-view">
     <tbody>
-    <tr v-for="(col,colIndex) in element.columns" :key="colIndex">
+    <tr v-for="(col,colIndex) in data.columns" :key="colIndex">
       <td v-for="(td,tdIndex) in col" :key="'td_'+tdIndex" :colspan="td.col" :rowspan="td.row"
           @contextmenu.prevent="rightClick($event,colIndex,tdIndex)"  :class="{CellHide:td.hide}">
         <Draggable
@@ -24,7 +24,7 @@
             :group="{ name: 'people' }"
             :no-transition-on-drag="true"
             :list="td.list"
-            @add="handleTdMoveAdd($event, element, colIndex,tdIndex)"
+            @add="handleTdMoveAdd($event, data, colIndex,tdIndex)"
         >
           <template #item="{ element, index }">
             <transition-group name="fade" tag="div">
@@ -43,7 +43,7 @@
         </Draggable>
         <div
             class="widget-view-action widget-col-action"
-            v-if="widgetFormSelect?.key === element.key"
+            v-if="widgetFormSelect?.key === data.key"
         >
           <SvgIcon
               iconClass="delete" class-name="delete"
@@ -53,7 +53,7 @@
 
         <div
             class="widget-view-drag widget-col-drag"
-            v-if="widgetFormSelect?.key === element.key"
+            v-if="widgetFormSelect?.key === data.key"
         >
           <SvgIcon iconClass="move" className="drag-widget" />
         </div>
@@ -93,7 +93,7 @@ import {naiveui} from "../../../config";
 import GenerateFormItem from '../../generate/GenerateFormItem.vue'
 import {v4} from "uuid";
 import DesignFormItem from "../../design/DesignFormItem.vue";
-let td = {col:1,row:1,hide:false,columns:[]};
+let td = {col:1,row:1,hide:false,list:[]};
 let tr = [td,td];
 export default defineComponent({
   name: 'GTable',
@@ -112,11 +112,15 @@ export default defineComponent({
       type: Object,
       required: true
     },
+    elementIndex: {
+      type: Number,
+      required: true
+    },
     widgetFormSelect: {
       type: Object
     },
   },
-  emits: ['update:widgetForm', 'update:widgetFormSelect'],
+  emits: ['update:widgetForm', 'update:widgetFormSelect', 'update:element'],
   setup(props, context){
     const data = ref<any>(props.element)
     const widgetForm = ref<any>(props.widgetForm)
@@ -265,17 +269,19 @@ export default defineComponent({
         tdIndex: string | number | symbol
     ) => {
       const { newIndex, oldIndex, item } = event
-      const list = JSON.parse(JSON.stringify(props.widgetForm.list[index]))
-
-      if (item.className.includes('data-grid')) {
-        item.tagName === 'DIV' &&
-        list.splice(oldIndex, 0, row.columns[index][tdIndex].list[newIndex])
-        row.columns[index][tdIndex].list.splice(newIndex, 1)
-        return false
-      }
+      console.log('element=',data)
+      // console.log('JSON.stringify(props.widgetForm.list[index])=',JSON.stringify(props.widgetForm.list[index]))
+      // const list = JSON.parse(JSON.stringify(data))
+      //
+      // if (item.className.includes('data-grid')) {
+      //   item.tagName === 'DIV' &&
+      //   list.splice(oldIndex, 0, row.columns[index][tdIndex].list[newIndex])
+      //   row.columns[index][tdIndex].list.splice(newIndex, 1)
+      //   return false
+      // }
 
       const key = v4().replaceAll('-', '')
-
+      console.log('JSS=',JSON.stringify(row.columns))
       row.columns[index][tdIndex].list[newIndex] = {
         ...row.columns[index][tdIndex].list[newIndex],
         key,

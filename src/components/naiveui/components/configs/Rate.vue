@@ -24,7 +24,13 @@
       </template>
     </n-switch>
   </n-form-item>
-
+  <n-form-item
+      label="显示属性">
+    <n-checkbox
+        v-model:checked="data.options.showLabel"
+    >显示标签
+    </n-checkbox>
+  </n-form-item>
   <n-form-item label="操作属性">
     <n-checkbox
         v-model:checked="data.options.rules.required"

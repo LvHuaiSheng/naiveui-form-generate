@@ -8,6 +8,7 @@
   <n-form-item label="纵向间隔槽">
     <n-input-number v-model:value="data.options.yGap" :min="0" />
   </n-form-item>
+
   <n-form-item label="列配置项" class="fc-form-item-block">
     <n-dynamic-input v-model:value="data.columns" :on-create="handleInsertColumn" show-sort-button>
       <template #default="{ value }">

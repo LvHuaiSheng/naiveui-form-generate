@@ -51,7 +51,13 @@
       <n-checkbox v-model:checked="data.options.showPreviewButton">是否允许显示预览按钮</n-checkbox>
     </n-space>
   </n-form-item>
-
+  <n-form-item
+      label="显示属性">
+    <n-checkbox
+        v-model:checked="data.options.showLabel"
+    >显示标签
+    </n-checkbox>
+  </n-form-item>
   <n-form-item label="操作属性">
     <n-checkbox
         v-model:checked="data.options.rules.required"

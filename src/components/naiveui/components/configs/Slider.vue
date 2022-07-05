@@ -39,6 +39,13 @@
       </n-checkbox>
     </n-space>
   </n-form-item>
+  <n-form-item
+      label="显示属性">
+    <n-checkbox
+        v-model:checked="data.options.showLabel"
+    >显示标签
+    </n-checkbox>
+  </n-form-item>
   <n-form-item label="操作属性">
     <n-space item-style="display: flex;" align="center">
       <n-checkbox

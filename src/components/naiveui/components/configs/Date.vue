@@ -7,6 +7,14 @@
         :placeholder="data.options.placeholder"
     />
   </n-form-item>
+  <n-form-item label="组件类型">
+    <n-radio-group v-model:value="data.options.type" @change="changeDateType">
+      <n-radio-button value="date" label="日期"/>
+      <n-radio-button value="month" label="月份"/>
+      <n-radio-button value="quarter" label="季度"/>
+      <n-radio-button value="year" label="年份"/>
+    </n-radio-group>
+  </n-form-item>
   <n-form-item label="格式">
     <n-input v-model:value="data.options.format" />
   </n-form-item>
@@ -48,8 +56,28 @@ export default defineComponent({
         val => (data.value = val)
     )
     watch(data, val => context.emit('update:select', val))
+
+    const changeDateType = (e: Event)=> {
+      let value = (e.target as HTMLInputElement).value
+      switch (value) {
+        case 'date':
+          data.value.options.format='yyyy-MM-dd';
+          break
+        case 'month':
+          data.value.options.format='yyyy-MM';
+          break
+        case 'quarter':
+          data.value.options.format='yyyy-第Q季度';
+          break
+        case 'year':
+          data.value.options.format='yyyy';
+          break
+      }
+    }
+
     return {
       data,
+      changeDateType
     }
   }
 })

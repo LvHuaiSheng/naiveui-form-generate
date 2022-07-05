@@ -5,6 +5,13 @@
                     :show-preview="data.options.showPreview"
                     :placement="data.options.placement"/>
   </n-form-item>
+  <n-form-item
+      label="显示属性">
+    <n-checkbox
+        v-model:checked="data.options.showLabel"
+    >显示标签
+    </n-checkbox>
+  </n-form-item>
   <n-form-item>
     <template #label>
       可用模式

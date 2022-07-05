@@ -59,6 +59,18 @@
           </template>
         </n-switch>
       </n-form-item>
+<!--      <n-form-item label="显示标签文本">
+        <n-switch
+            v-model:value="data.showLabel"
+        >
+          <template #checked>
+            显示
+          </template>
+          <template #unchecked>
+            隐藏
+          </template>
+        </n-switch>
+      </n-form-item>-->
     </n-form>
   </div>
 </template>

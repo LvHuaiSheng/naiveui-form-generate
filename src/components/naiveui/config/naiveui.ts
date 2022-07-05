@@ -19,6 +19,7 @@ export interface WidgetForm {
     groupType: string
     labelAlign: string
     labelWidth: any
+    showLabel: boolean
     labelPlacement: string
   }
 }
@@ -60,6 +61,7 @@ export const widgetForm: WidgetForm = {
     labelAlign: 'left',
     labelWidth: 'auto',
     labelPlacement: 'top',
+    showLabel: true,
   }
 }
 
@@ -70,6 +72,7 @@ export const basicComponents = [
     options: {
       width: '100%',
       type:'text',
+      showLabel: true,
       defaultValue: '',
       placeholder: '',
       maxlength: null,
@@ -87,6 +90,7 @@ export const basicComponents = [
     label: '数字输入',
     type: 'number',
     options: {
+      showLabel: true,
       width: '',
       defaultValue: 0,
       min: 0,
@@ -105,7 +109,7 @@ export const basicComponents = [
       width: '',
       groupType: 'radioGroup',
       remote: false,
-      showLabel: false,
+      showLabel: true,
       remoteFunc:
         'https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json',
       options: [
@@ -139,7 +143,7 @@ export const basicComponents = [
       width: '',
       inline: true,
       remote: false,
-      showLabel: false,
+      showLabel: true,
       remoteFunc:
         'https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json',
       options: [
@@ -169,6 +173,7 @@ export const basicComponents = [
     label: '时间选择器',
     type: 'time',
     options: {
+      showLabel: true,
       defaultValue: null,
       width: '',
       placeholder: '请选择时间',
@@ -184,6 +189,7 @@ export const basicComponents = [
     label: '日期选择器',
     type: 'date',
     options: {
+      showLabel: true,
       defaultValue: null,
       width: '',
       placeholder: '请选择时间',
@@ -199,6 +205,7 @@ export const basicComponents = [
     label: '评分',
     type: 'rate',
     options: {
+      showLabel: true,
       defaultValue: null,
       max: 5,
       allowClear: true,
@@ -216,7 +223,7 @@ export const basicComponents = [
       placeholder: '请选择',
       multiple:false,
       remote: false,
-      showLabel: false,
+      showLabel: true,
       filterable: false,
       allowClear: false,
       disabled: false,
@@ -248,6 +255,7 @@ export const basicComponents = [
     label: '开关',
     type: 'switch',
     options: {
+      showLabel: true,
       defaultValue: false,
       disabled: false,
       checkedChildren: '',
@@ -259,6 +267,7 @@ export const basicComponents = [
     label: '滑块',
     type: 'slider',
     options: {
+      showLabel: true,
       defaultValue: 0,
       width: '',
       height: '',
@@ -276,6 +285,7 @@ export const basicComponents = [
     label: '颜色选择器',
     type: 'color',
     options: {
+      showLabel: true,
       defaultValue: '',
       width: '',
       disabled: false,
@@ -292,6 +302,7 @@ export const advanceComponents = [
     label: '树形选择',
     type: 'selectTree',
     options: {
+      showLabel: true,
       defaultValue: [],
       width: '',
       placeholder: '请选择',
@@ -362,6 +373,7 @@ export const advanceComponents = [
     label: '上传',
     type: 'upload',
     options: {
+      showLabel: true,
       defaultValue: [],
       defaultUpload:true,
       directory:false,
@@ -387,6 +399,7 @@ export const advanceComponents = [
     label: '富文本编辑器',
     type: 'richtext-editor',
     options: {
+      showLabel: true,
       defaultValue: '',
       width: '',
       disabled: false,
@@ -397,6 +410,7 @@ export const advanceComponents = [
     label: '穿梭框',
     type: 'transfer',
     options: {
+      showLabel: true,
       defaultValue: '',
       width: '',
       disabled: false,
@@ -426,6 +440,7 @@ export const advanceComponents = [
     type: 'cascader',
     dev:true,
     options: {
+      showLabel: true,
       defaultValue: [],
       width: '200px',
       placeholder: '',
@@ -486,6 +501,7 @@ export const advanceComponents = [
     type: 'tree',
     dev:true,
     options: {
+      showLabel: true,
       defaultValue: 'This is a tree',
     }
   },
@@ -494,18 +510,39 @@ export const advanceComponents = [
     type: 'dynamicTable',
     dev:true,
     options: {
+      showLabel: true,
       defaultValue: 'This is a dynamicTable',
     }
   },
 ]
 export const otherComponents = [
   {
-    label: '文字',
     type: 'text',
+    label:'文字',
+    hideLabel:true,
     options: {
-      defaultValue: 'This is a text',
-      width:'',
-      height:'',
+      showLabel: false,
+      text:'文字',
+      style:{
+        width:'100%',
+        height:'',
+        textAlign:'center',
+        fontWeight:'400',
+        fontSize:'20px',
+        lineHeight:'1.5'
+      },
+    }
+  },
+  {
+    type: 'divider',
+    label:'分割线',
+    hideLabel:true,
+    options: {
+      showLabel: false,
+      text:'分割线',
+      dashed:false,
+      titlePlacement:'center',
+      vertical:false,
     }
   },
   {
@@ -513,6 +550,7 @@ export const otherComponents = [
     hideLabel:true,
     type: 'alert',
     options: {
+      showLabel: false,
       title: 'This is a alert',
       content: 'This is a alert',
       type: 'default',
@@ -555,33 +593,64 @@ export const layoutComponents = [
     type: 'table',
     columns: [
       [
-        {
-          col:1,
-          row:1,
-          hide:false,
-          list: []
-        },
-        {
-          col:1,
-          row:1,
-          hide:false,
-          list: []
-        }
-      ]
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+      ],
+      [
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+      ],
+      [
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+      ],
+      [
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+      ],
+      [
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+      ],
+      [
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+      ],
+      [
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+      ],
+      [
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+        {col:1, row:1, hide:false, list: []},
+      ],
     ],
     options: {
       theme:'theme1',
       width:'210mm',
       height:'297mm',
-      cols:24,
-      xGap: 0,
-      yGap: 0,
-      collapsed: false,
-      collapsedRows: 1,
-      responsive: 'self',
-      itemResponsive: false,
-      justify: 'start',
-      align: 'top'
+      disabled: false,
+      bordered:true,
+      bottomBordered:false,
+      singleColumn:false,
+      singleLine:false,
+      striped:true,
     }
   },
   // {
@@ -600,212 +669,7 @@ export const layoutComponents = [
   //     singleLine:false,
   //     striped:false,
   //     layoutArray:[
-  //       [
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "list": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "list": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         }
-  //       ],
-  //       [
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "list": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "list": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         }
-  //       ],
-  //       [
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         }
-  //       ],
-  //       [
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         }
-  //       ],
-  //       [
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         }
-  //       ],
-  //       [
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         }
-  //       ],
-  //       [
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         }
-  //       ],
-  //       [
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         },
-  //         {
-  //           "col": 1,
-  //           "row": 1,
-  //           "hide": false,
-  //           "columns": []
-  //         }
-  //       ],
-  //
-  //     ],
+
   //   }
   // },
 ]

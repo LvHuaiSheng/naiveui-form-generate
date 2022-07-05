@@ -9,6 +9,21 @@
     </n-space>
   </n-form-item>
 
+<!--  <n-form-item label="快速生成">-->
+<!--    <n-space vertical>-->
+<!--      <n-input-group>-->
+<!--        <n-input-group-label>行数</n-input-group-label>-->
+<!--        <n-input-number v-model:value="data.columns.length" placeholder="行"/>-->
+<!--        <n-button type="primary">生成</n-button>-->
+<!--      </n-input-group>-->
+<!--      <n-input-group>-->
+<!--        <n-input-group-label>列数</n-input-group-label>-->
+<!--        <n-input-number v-model:value="data.options.col" placeholder="列"/>-->
+<!--        <n-button type="primary">生成</n-button>-->
+<!--      </n-input-group>-->
+<!--    </n-space>-->
+<!--  </n-form-item>-->
+
   <n-form-item label="展示主题">
     <n-radio-group v-model:value="data.options.theme">
       <n-radio-button value="default">默认主题</n-radio-button>
@@ -46,6 +61,9 @@
     >禁用
     </n-checkbox>
   </n-form-item>
+  <n-alert title="使用说明" type="info">
+    在表格处 <strong>右键鼠标</strong> 即可修改表格
+  </n-alert>
 </template>
 <script lang="ts">
 import {defineComponent, reactive, ref, watch,toRefs} from 'vue'

@@ -14,6 +14,13 @@
   <n-form-item label="步长">
     <n-input-number v-model:value.number="data.options.step" :min="0" />
   </n-form-item>
+  <n-form-item
+      label="显示属性">
+    <n-checkbox
+        v-model:checked="data.options.showLabel"
+    >显示标签
+    </n-checkbox>
+  </n-form-item>
   <n-form-item label="操作属性">
     <n-checkbox
         v-model:checked="data.options.rules.required"

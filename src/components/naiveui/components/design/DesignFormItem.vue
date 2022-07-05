@@ -5,9 +5,10 @@
       v-if="element"
       :key="element.key"
       :class="{ active: selectWidget?.key === element.key }"
-      :label="!element.hideLabel?element.label:''"
       :rules="element.options.rules"
+      :label="element.label"
       :show-require-mark="!config.hideRequiredMark && (element.options.rules?element.options.rules.required:false)"
+      :show-label="element.options.showLabel"
     >
       <template v-if="element.type === 'input'">
         <n-input
@@ -209,9 +210,15 @@
       </template>
 
       <template v-if="element.type === 'text'">
-        <div :style="{ width: element.options.width,height:element.options.height }">
-          <span>{{ element.options.defaultValue }}</span>
+        <div :style="element.options.style">
+          <span>{{ element.options.text }}</span>
         </div>
+      </template>
+      <template v-if="element.type === 'divider'">
+        {{element.options.vertical?element.options.text:''}}
+        <n-divider :dashed="element.options.dashed" :title-placement="element.options.titlePlacement" :vertical="element.options.vertical">
+          {{element.options.text}}
+        </n-divider>
       </template>
       <template v-if="element.type === 'alert'">
         <n-alert :title="element.options.title"

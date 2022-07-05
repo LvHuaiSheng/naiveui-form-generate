@@ -9,6 +9,10 @@
   <n-form-item
       label="显示属性">
     <n-checkbox
+        v-model:checked="data.options.showLabel"
+    >显示标签
+    </n-checkbox>
+    <n-checkbox
         v-model:checked="data.options.showCount"
     >显示字数
     </n-checkbox

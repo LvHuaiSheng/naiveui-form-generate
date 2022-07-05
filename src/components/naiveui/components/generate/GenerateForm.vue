@@ -9,6 +9,7 @@
       :label-placement="widgetForm.config.labelPlacement"
       :labelWidth="widgetForm.config.labelWidth"
       :show-require-mark="!widgetForm.config.hideRequiredMark"
+      :show-label="widgetForm.config.showLabel"
     >
       <template v-for="(element, index) of widgetForm.list">
         <template v-if="element.type === 'grid'">
@@ -34,6 +35,35 @@
               />
             </n-gi>
           </n-grid>
+        </template>
+        <template v-else-if="element.type === 'table'">
+          <!--              <g-table :element="element" :elementIndex="index" v-model:widgetForm="widgetForm" v-model:widgetFormSelect="widgetFormSelect"/>-->
+          <n-table v-if="element.key"
+                   :key="element.key"
+                   :class="' table-'+element.options.theme"
+                   :bordered="element.options.bordered"
+                   :bottom-bordered="element.options.bottomBordered"
+                   :single-column="element.options.singleColumn"
+                   :single-line="element.options.singleLine"
+                   :striped="element.options.striped"
+                   :style="{ width: element.options.width,height: element.options.height }">
+            <tbody>
+            <tr v-for="(col,colIndex) in element.columns" :key="colIndex">
+              <td v-for="(td,tdIndex) in col" :key="'td_'+tdIndex" :colspan="td.col" :rowspan="td.row" :class="{CellHide:td.hide}">
+                <div class="widget-col-list">
+                  <GenerateFormItem
+                      v-for="colItem of td.list"
+                      :model="model"
+                      :key="colItem.key"
+                      :element="colItem"
+                      :config="data.config"
+                      :disabled="disabled"
+                  />
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </n-table>
         </template>
         <GenerateFormItem
           v-else

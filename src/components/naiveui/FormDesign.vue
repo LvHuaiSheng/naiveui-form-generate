@@ -87,7 +87,7 @@
       >JSON格式如下，直接复制生成的json覆盖此处代码点击确定即可</n-alert>
       <CodeEditor v-model:value="jsonEg" language="json" />
     </n-modal>
-    <n-modal v-model:show="previewVisible" preset="dialog" title="预览" style="width: 800px">
+    <n-modal v-model:show="previewVisible" preset="dialog" title="预览" style="width: max-content;max-width:100vw;min-width: 500px;overflow: auto">
       <!--      <template #header>-->
       <!--        <div>标题</div>-->
       <!--      </template>-->
@@ -242,7 +242,7 @@ export default defineComponent({
     },
     otherFields: {
       type: Array as PropType<Array<string>>,
-      default: () => ['text','alert']
+      default: () => ['text','alert','divider']
     }
   },
   setup() {

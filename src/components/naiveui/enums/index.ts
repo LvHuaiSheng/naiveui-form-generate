@@ -29,6 +29,9 @@ export enum ComponentType {
   DynamicTable = 'dynamicTable',
   SelectTree = 'selectTree',
   Transfer = 'transfer',
+  Alert = 'alert',
+  Text = 'text',
+  Divider = 'divider',
 }
 
 export function checkComponent(test: any): test is ComponentType {

@@ -13,7 +13,13 @@
   <n-form-item label="绑定值格式">
     <n-input v-model:value="data.options.valueFormat" />
   </n-form-item>
-
+  <n-form-item
+      label="显示属性">
+    <n-checkbox
+        v-model:checked="data.options.showLabel"
+    >显示标签
+    </n-checkbox>
+  </n-form-item>
   <n-form-item label="操作属性">
     <n-checkbox
         v-model:checked="data.options.rules.required"

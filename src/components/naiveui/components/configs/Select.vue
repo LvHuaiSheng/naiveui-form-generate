@@ -1,4 +1,18 @@
 <template>
+  <n-form-item label="是否可搜索">
+    <n-switch
+        checked-children="是"
+        un-checked-children="否"
+        v-model:value="data.options.filterable"
+    >
+      <template #checked>
+        是
+      </template>
+      <template #unchecked>
+        否
+      </template>
+    </n-switch>
+  </n-form-item>
   <n-form-item label="模式">
     <n-radio-group
         button-style="solid"

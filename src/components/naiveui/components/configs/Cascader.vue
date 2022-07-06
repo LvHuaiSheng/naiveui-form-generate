@@ -13,6 +13,20 @@
       </template>
     </n-switch>
   </n-form-item>
+  <n-form-item label="在多选时是否关联选项">
+    <n-switch
+        checked-children="是"
+        un-checked-children="否"
+        v-model:value="data.options.cascade"
+    >
+      <template #checked>
+        是
+      </template>
+      <template #unchecked>
+        否
+      </template>
+    </n-switch>
+  </n-form-item>
   <n-form-item label="模式">
     <n-radio-group
         button-style="solid"
@@ -21,6 +35,14 @@
     >
       <n-radio-button :value="false">单选</n-radio-button>
       <n-radio-button :value="true">多选</n-radio-button>
+    </n-radio-group>
+  </n-form-item>
+  <n-form-item label="子项展开方式">
+    <n-radio-group
+        button-style="solid"
+        v-model:value="data.options.expandTrigger">
+      <n-radio-button value="click">点击</n-radio-button>
+      <n-radio-button value="hover">鼠标移入</n-radio-button>
     </n-radio-group>
   </n-form-item>
   <n-form-item label="选中策略">
@@ -35,6 +57,12 @@
         Child
       </n-radio-button>
     </n-radio-group>
+  </n-form-item>
+  <n-form-item label="面板的弹出位置">
+    <n-select v-model:value="data.options.placement" :options="placementOptions"></n-select>
+  </n-form-item>
+  <n-form-item label="数据分隔符">
+    <n-input  v-model:value="data.options.separator"/>
   </n-form-item>
   <n-form-item label="选项" >
     <div style="width: 100%">
@@ -198,6 +226,20 @@ export default defineComponent({
       value:'',
     }
     const state = reactive({
+      placementOptions: [
+        {label: 'top-start', value: 'top-start'},
+        {label: 'top', value: 'top'},
+        {label: 'top-end', value: 'top-end'},
+        {label: 'right-start', value: 'right-start'},
+        {label: 'right', value: 'right'},
+        {label: 'right-end', value: 'right-end'},
+        {label: 'bottom-start', value: 'bottom-start'},
+        {label: 'bottom', value: 'bottom'},
+        {label: 'bottom-end', value: 'bottom-end'},
+        {label: 'left-start', value: 'left-start'},
+        {label: 'left', value: 'left'},
+        {label: 'left-end', value: 'left-end'},
+      ],
       showTreeDataType:'add',
       showTreeDataDriwer:false,
       treeData,

@@ -267,21 +267,81 @@
     </template>
 
     <template v-if="element.type === 'cascader'">
-      <a-cascader
-        v-model:value="data"
-        :size="config.size"
-        :options="element.options.remoteOptions"
-        :placeholder="element.options.placeholder"
-        :allowClear="element.options.allowClear"
-        :disabled="disabled || element.options.disabled"
-        :style="{ width: element.options.width }"
+      <n-cascader
+          :size="config.size"
+          v-model:value="data"
+          :options="element.options.options"
+          :placeholder="element.options.placeholder"
+          :multiple="element.options.multiple"
+          :filterable="element.options.filterable"
+          :check-strategy="element.options.checkStrategy"
+          :clearable="element.options.allowClear"
+          :label-field="element.options.props.label"
+          :value-field="element.options.props.value"
+          :disabled="disabled || element.options.disabled"
+          :show-path="element.options.showPath"
+          :placement="element.options.placement"
+          :separator="element.options.separator"
+          :expand-trigger="element.options.expandTrigger"
+          :style="{ width: element.options.width }"
       />
+    </template>
+    <template v-if="element.type === 'tree'">
+      <n-space vertical :size="12">
+        <n-input v-if="element.options.filterable" v-model:value="pattern" placeholder="搜索" />
+        <n-tree
+            :size="config.size"
+            :data="data"
+            v-model:checked-keys="element.options.defaultValue"
+            :label-field="element.options.props.label"
+            :key-field="element.options.props.value"
+            :disabled="disabled ||  element.options.disabled"
+            :multiple="element.options.multiple"
+            :cascade="element.options.cascade"
+            :checkable="element.options.checkable"
+            :show-irrelevant-nodes="element.options.showIrrelevantNodes"
+            :pattern="pattern"
+            :check-strategy="element.options.checkStrategy"
+            :virtual-scroll="element.options.virtualScroll"
+            :style="{ width: element.options.width }"
+        />
+      </n-space>
+    </template>
+    <template v-if="element.type === 'dynamicTags'">
+      <n-dynamic-tags v-model:value="data"
+                      :size="config.size"
+                      :max="element.options.max"
+                      :closable="element.options.closable"
+                      :type="element.options.type"
+                      :color="element.options.color"
+                      :round="element.options.round"
+                      :disabled="disabled || element.options.disabled"
+                      :style="{ width: element.options.width }"/>
+    </template>
+    <template v-if="element.type === 'button'">
+      <n-button :size="config.size"
+                :type="element.options.type"
+                :block="element.options.block"
+                :bordered="element.options.bordered"
+                :circle="element.options.circle"
+                :color="element.options.color"
+                :dashed="element.options.dashed"
+                :disabled="disabled || element.options.disabled"
+                :ghost="element.options.ghost"
+                :round="element.options.round"
+                :strong="element.options.strong"
+                :text="element.options.textBtn"
+                :text-color="element.options.textColor"
+                :loading="element.options.loading"
+                :style="{ width: element.options.width,height: element.options.height}"
+      >{{element.options.text}}
+      </n-button>
     </template>
   </n-form-item>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType,ref } from 'vue'
 import SvgIcon from '../../../../components/SvgIcon.vue'
 import RichTextEditor from '../custom/RichTextEditor.vue'
 import { WidgetForm } from '../../config/naiveui'
@@ -329,6 +389,7 @@ export default defineComponent({
 
     return {
       data,
+      pattern: ref(''),
       handleFilterOption,
       handleUploadChange
     }

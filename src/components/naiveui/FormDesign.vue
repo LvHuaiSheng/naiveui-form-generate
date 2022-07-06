@@ -234,6 +234,7 @@ export default defineComponent({
         'dynamicTable',
         'selectTree',
         'transfer',
+        'dynamicTags',
       ]
     },
     layoutFields: {
@@ -242,7 +243,7 @@ export default defineComponent({
     },
     otherFields: {
       type: Array as PropType<Array<string>>,
-      default: () => ['text','alert','divider']
+      default: () => ['text','alert','divider','button']
     }
   },
   setup() {

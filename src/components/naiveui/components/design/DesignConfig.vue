@@ -77,6 +77,10 @@ import Table from '../configs/Table.vue'
 import Alert from '../configs/Alert.vue'
 import Text from '../configs/Text.vue'
 import Divider from '../configs/Divider.vue'
+import Cascader from '../configs/Cascader.vue'
+import Tree from '../configs/Tree.vue'
+import DynamicTags from '../configs/DynamicTags.vue'
+import Button from '../configs/Button.vue'
 import SvgIcon from '../../../../components/SvgIcon.vue'
 import { NSpace,NButton,NInput, useMessage,FormInst } from 'naive-ui'
 import { v4 } from 'uuid'
@@ -108,6 +112,10 @@ export default defineComponent({
     Alert,
     Text,
     Divider,
+    Cascader,
+    Tree,
+    DynamicTags,
+    Button,
   },
   props: {
     select: {

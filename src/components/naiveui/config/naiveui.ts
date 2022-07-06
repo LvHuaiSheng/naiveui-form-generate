@@ -91,7 +91,7 @@ export const basicComponents = [
     type: 'number',
     options: {
       showLabel: true,
-      width: '',
+      width: '100%',
       defaultValue: 0,
       min: 0,
       max: 100,
@@ -438,16 +438,22 @@ export const advanceComponents = [
   {
     label: '级联选择器',
     type: 'cascader',
-    dev:true,
     options: {
       showLabel: true,
       defaultValue: [],
-      width: '200px',
-      placeholder: '',
+      width: '',
+      placeholder: '请选择',
       disabled: false,
       allowClear: false,
-      remote: true,
-      remoteOptions: [],
+      remote: false,
+      multiple: false,
+      filterable: false,
+      cascade: true,
+      showPath: true,
+      placement: 'bottom-start',
+      separator: '/',
+      expandTrigger: 'click',
+      checkStrategy: 'child',
       props: {
         label: 'label',
         value: 'value',
@@ -499,10 +505,83 @@ export const advanceComponents = [
   {
     label: '树形组件',
     type: 'tree',
-    dev:true,
     options: {
       showLabel: true,
-      defaultValue: 'This is a tree',
+      defaultValue: [],
+      cascade: true,
+      checkable: true,
+      multiple: true,
+      filterable: false,
+      checkStrategy: 'child',
+      virtualScroll:false,
+      remote: false,
+      props: {
+        label: 'label',
+        value: 'value',
+        children: 'children'
+      },
+      options: [
+        {
+          id:'1',
+          label: 'Option 1',
+          value: 'Option 1',
+          children:[
+            {
+              id:'1-1',
+              label: '1-1',
+              value: '1-1',
+            }
+          ],
+        },
+        {
+          id:'2',
+          label: 'Option 2',
+          value: 'Option 2',
+          children:[
+            {
+              id:'2-1',
+              label: '2-1',
+              value: '2-1',
+            }
+          ],
+        },
+        {
+          id:'3',
+          label: 'Option 3',
+          value: 'Option 3',
+          children:[
+            {
+              id:'3-1',
+              label: '3-1',
+              value: '3-1',
+            }
+          ],
+        }
+      ],
+      rules:getRules('array')
+    }
+  },
+  {
+    label: '动态标签',
+    type: 'dynamicTags',
+    options: {
+      showLabel: true,
+      defaultValue: [],
+      max: undefined,
+      closable: true,
+      type: 'info',
+      color: {
+        color:null,
+        borderColor:null,
+        textColor:null,
+      },
+      round: false,
+      disabled: false,
+      style:{
+        width:'100%',
+        height:'',
+      },
+      rules:getRules('array')
     }
   },
   {
@@ -558,6 +637,28 @@ export const otherComponents = [
       height:'',
       showIcon: true,
       closable: false,
+    }
+  },
+  {
+    label: '按钮',
+    hideLabel:true,
+    type: 'button',
+    options: {
+      showLabel: false,
+      text:'按钮',
+      type: 'default',
+      width:'',
+      height:'',
+      block:false,
+      bordered:true,
+      dashed:false,
+      circle:false,
+      ghost:false,
+      strong:false,
+      textBtn:false,
+      color:null,
+      textColor:null,
+      loading:false,
     }
   },
 ]

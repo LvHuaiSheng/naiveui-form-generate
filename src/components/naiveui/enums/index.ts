@@ -32,6 +32,8 @@ export enum ComponentType {
   Alert = 'alert',
   Text = 'text',
   Divider = 'divider',
+  DynamicTags = 'dynamicTags',
+  Button = 'button',
 }
 
 export function checkComponent(test: any): test is ComponentType {

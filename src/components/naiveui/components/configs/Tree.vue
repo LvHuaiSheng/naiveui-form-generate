@@ -13,6 +13,39 @@
       </template>
     </n-switch>
   </n-form-item>
+  <n-form-item label="在多选时是否关联选项">
+    <n-switch
+        checked-children="是"
+        un-checked-children="否"
+        v-model:value="data.options.cascade"
+    >
+      <template #checked>
+        是
+      </template>
+      <template #unchecked>
+        否
+      </template>
+    </n-switch>
+  </n-form-item>
+  <n-form-item label="是否显示选择框">
+    <n-tooltip trigger="hover">
+      <template #trigger>
+        <n-switch
+            checked-children="是"
+            un-checked-children="否"
+            v-model:value="data.options.checkable"
+        >
+          <template #checked>
+            是
+          </template>
+          <template #unchecked>
+            否
+          </template>
+        </n-switch>
+      </template>
+      注意：选择框在单选时将不可控
+    </n-tooltip>
+  </n-form-item>
   <n-form-item label="模式">
     <n-radio-group
         button-style="solid"
@@ -35,6 +68,20 @@
         Child
       </n-radio-button>
     </n-radio-group>
+  </n-form-item>
+  <n-form-item label="开启虚拟滚动（停用动画）">
+    <n-switch
+        checked-children="是"
+        un-checked-children="否"
+        v-model:value="data.options.virtualScroll"
+    >
+      <template #checked>
+        是
+      </template>
+      <template #unchecked>
+        否
+      </template>
+    </n-switch>
   </n-form-item>
   <n-form-item label="选项" >
     <div style="width: 100%">
@@ -198,6 +245,20 @@ export default defineComponent({
       value:'',
     }
     const state = reactive({
+      placementOptions: [
+        {label: 'top-start', value: 'top-start'},
+        {label: 'top', value: 'top'},
+        {label: 'top-end', value: 'top-end'},
+        {label: 'right-start', value: 'right-start'},
+        {label: 'right', value: 'right'},
+        {label: 'right-end', value: 'right-end'},
+        {label: 'bottom-start', value: 'bottom-start'},
+        {label: 'bottom', value: 'bottom'},
+        {label: 'bottom-end', value: 'bottom-end'},
+        {label: 'left-start', value: 'left-start'},
+        {label: 'left', value: 'left'},
+        {label: 'left-end', value: 'left-end'},
+      ],
       showTreeDataType:'add',
       showTreeDataDriwer:false,
       treeData,
@@ -278,13 +339,13 @@ export default defineComponent({
     const handleSelectModeChange = (event: any) => {
       const { value } = event.target
       if (value!=='true') {
-        data.value.options.rules.type='string'
+        // data.value.options.rules.type='string'
         data.value.options.defaultValue.length
             ? (data.value.options.defaultValue =
                 data.value.options.defaultValue[0])
             : (data.value.options.defaultValue = null)
       } else {
-        data.value.options.rules.type='array'
+        // data.value.options.rules.type='array'
         if (data.value.options.defaultValue) {
           if (!(data.value.options.defaultValue instanceof Array)) {
             data.value.options.defaultValue = [data.value.options.defaultValue]

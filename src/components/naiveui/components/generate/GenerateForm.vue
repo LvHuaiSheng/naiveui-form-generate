@@ -176,7 +176,7 @@ export default defineComponent({
 
     const getData = () => {
       return new Promise((resolve, reject) => {
-        console.log('generateForm.value=',generateForm.value)
+        console.log('generateForm.value=',JSON.stringify(generateForm.value))
         generateForm.value?.validate((errors) => {
           console.log('errors=',errors)
           if (!errors) {

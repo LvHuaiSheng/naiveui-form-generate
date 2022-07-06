@@ -5,7 +5,7 @@
       <n-input v-model:value="data.model" />
     </n-form-item>
 
-    <n-form-item label="标题" v-if="hasKey('label')&&data.type !== 'grid'&&!data.hideLabel">
+    <n-form-item label="标题" v-if="data.type !== 'grid'&&data.options.showLabel">
       <n-input v-model:value="data.label" />
     </n-form-item>
 

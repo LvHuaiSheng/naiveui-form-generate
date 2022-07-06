@@ -1,8 +1,4 @@
 <template>
-  <n-form-item label="标题" >
-    <n-input v-model:value="data.options.title" />
-  </n-form-item>
-
   <n-form-item label="最大值">
     <n-input-number v-model:value.number="data.options.max" />
   </n-form-item>

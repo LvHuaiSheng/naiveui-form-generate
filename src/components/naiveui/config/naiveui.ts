@@ -598,7 +598,6 @@ export const otherComponents = [
   {
     type: 'text',
     label:'文字',
-    hideLabel:true,
     options: {
       showLabel: false,
       text:'文字',
@@ -615,7 +614,6 @@ export const otherComponents = [
   {
     type: 'divider',
     label:'分割线',
-    hideLabel:true,
     options: {
       showLabel: false,
       text:'分割线',
@@ -626,7 +624,6 @@ export const otherComponents = [
   },
   {
     label: '警告信息',
-    hideLabel:true,
     type: 'alert',
     options: {
       showLabel: false,
@@ -641,7 +638,6 @@ export const otherComponents = [
   },
   {
     label: '按钮',
-    hideLabel:true,
     type: 'button',
     options: {
       showLabel: false,

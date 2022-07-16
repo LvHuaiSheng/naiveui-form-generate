@@ -13,9 +13,9 @@
 
 [NaiveUi Form Generate](https://gitee.com/sourcenet/naiveui-form-generate)，一个基于 Vue3.0、Vite、Naive UI 表单生成器。
 
-### 分支说明
-- develop：开发分支，最新代码，但不具有稳定性
-- master：主分支，相对稳定代码（目前develop开发阶段，此分支可暂时忽略）
+### 预览
+
+[预览地址](http://152.136.97.190:8080/naiveui-form-generate)
 
 ### 特别提示
 推荐从Gitee仓库拉取代码，[NaiveUi Form Generate](https://gitee.com/sourcenet/naiveui-form-generate)，GitHub提交老是被墙，代码也许不是最新的
@@ -59,9 +59,6 @@
 - 🚀 单个组件化封装（typescript）
 - 🚀 细节优化
 - 更多......
-### 预览
-
-[预览地址](http://152.136.97.190:8080/naiveui-form-generate)
 
 ### 文档
 - 待编写

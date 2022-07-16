@@ -3,6 +3,9 @@ import vue from '@vitejs/plugin-vue'
 import {resolve} from 'path'
 import {createSvgIconsPlugin} from 'vite-plugin-svg-icons'
 // https://vitejs.dev/config/
+function pathResolve(dir: string) {
+    return resolve(process.cwd(), '.', dir);
+}
 export default defineConfig({
 
         plugins: [

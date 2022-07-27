@@ -171,6 +171,7 @@
             </template>
             <template v-else>
               <DesignFormItem
+                :widgetForm="widgetForm"
                 v-if="element.key"
                 :key="element.key"
                 :element="element"

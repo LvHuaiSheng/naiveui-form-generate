@@ -21,7 +21,8 @@ export interface WidgetForm {
     labelWidth: any
     showLabel: boolean
     labelPlacement: string
-  }
+  },
+  getWidget:any,
 }
 const rules: Rules = {
   trigger: 'blur',
@@ -62,14 +63,26 @@ export const widgetForm: WidgetForm = {
     labelWidth: 'auto',
     labelPlacement: 'top',
     showLabel: true,
-  }
+  },
+  // getWidget:['list'].map(value => {
+  //   console.log('1111=',value)
+  // }),
+  getWidget:function (modelKey){
+    let widget = null
+    this.list.map(value => {
+      if (value.model===modelKey){
+        widget =  value
+      }
+    })
+    return widget
+  },
 }
-
 export const basicComponents = [
   {
     label: '文本输入',
     type: 'input',
     options: {
+      change:'',
       width: '100%',
       type:'text',
       showLabel: true,
@@ -90,6 +103,7 @@ export const basicComponents = [
     label: '数字输入',
     type: 'number',
     options: {
+      change:'',
       showLabel: true,
       width: '100%',
       defaultValue: 0,
@@ -105,6 +119,8 @@ export const basicComponents = [
     label: '单选框组',
     type: 'radio',
     options: {
+      change:'',
+      click:'',
       defaultValue: '',
       width: '',
       groupType: 'radioGroup',
@@ -139,6 +155,8 @@ export const basicComponents = [
     label: '多选框组',
     type: 'checkbox',
     options: {
+      change:'',
+      click:'',
       defaultValue: [],
       width: '',
       inline: true,
@@ -173,6 +191,7 @@ export const basicComponents = [
     label: '时间选择器',
     type: 'time',
     options: {
+      change:'',
       showLabel: true,
       defaultValue: null,
       width: '',
@@ -189,6 +208,7 @@ export const basicComponents = [
     label: '日期选择器',
     type: 'date',
     options: {
+      change:'',
       showLabel: true,
       defaultValue: null,
       width: '',
@@ -205,6 +225,8 @@ export const basicComponents = [
     label: '评分',
     type: 'rate',
     options: {
+      change:'',
+      click:'',
       showLabel: true,
       defaultValue: null,
       max: 5,
@@ -218,6 +240,7 @@ export const basicComponents = [
     label: '下拉选择框',
     type: 'select',
     options: {
+      change:'',
       defaultValue: [],
       width: '200px',
       placeholder: '请选择',
@@ -255,6 +278,8 @@ export const basicComponents = [
     label: '开关',
     type: 'switch',
     options: {
+      change:'',
+      click:'',
       showLabel: true,
       defaultValue: false,
       disabled: false,
@@ -267,6 +292,7 @@ export const basicComponents = [
     label: '滑块',
     type: 'slider',
     options: {
+      change:'',
       showLabel: true,
       defaultValue: 0,
       width: '',
@@ -285,6 +311,7 @@ export const basicComponents = [
     label: '颜色选择器',
     type: 'color',
     options: {
+      change:'',
       showLabel: true,
       defaultValue: '',
       width: '',
@@ -302,6 +329,7 @@ export const advanceComponents = [
     label: '树形选择',
     type: 'selectTree',
     options: {
+      change:'',
       showLabel: true,
       defaultValue: [],
       width: '',
@@ -410,6 +438,7 @@ export const advanceComponents = [
     label: '穿梭框',
     type: 'transfer',
     options: {
+      change:'',
       showLabel: true,
       defaultValue: '',
       width: '',
@@ -439,6 +468,7 @@ export const advanceComponents = [
     label: '级联选择器',
     type: 'cascader',
     options: {
+      change:'',
       showLabel: true,
       defaultValue: [],
       width: '',
@@ -506,6 +536,7 @@ export const advanceComponents = [
     label: '树形组件',
     type: 'tree',
     options: {
+      change:'',
       showLabel: true,
       defaultValue: [],
       cascade: true,

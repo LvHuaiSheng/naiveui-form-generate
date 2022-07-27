@@ -21,6 +21,7 @@
           :round="element.options.round"
           :show-count="element.options.showCount"
           show-password-on="click"
+          @change="handleChange"
       >
         <template #prefix v-if="element.options.prefix">
           {{element.options.prefix}}
@@ -143,7 +144,7 @@
     <template v-if="element.type === 'switch'">
       <n-switch
           :size="config.size"
-          v-model:value="data"
+          v-model:value="data" @change="handleChange"
           :disabled="disabled || element.options.disabled"
       >
         <template #checked>
@@ -345,14 +346,18 @@ import { computed, defineComponent, PropType,ref } from 'vue'
 import SvgIcon from '../../../../components/SvgIcon.vue'
 import RichTextEditor from '../custom/RichTextEditor.vue'
 import { WidgetForm } from '../../config/naiveui'
-
+import eventMixin from '../../mixins/eventMixin'
 export default defineComponent({
   name: 'GenerateFormItem',
+  mixins:[eventMixin],
   components: {
     SvgIcon,
     RichTextEditor
   },
   props: {
+    widgetForm: {
+      type: Object as PropType<WidgetForm>
+    },
     config: {
       type: Object as PropType<WidgetForm['config']>,
       required: true

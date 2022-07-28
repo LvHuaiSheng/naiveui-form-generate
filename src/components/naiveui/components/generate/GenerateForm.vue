@@ -32,6 +32,7 @@
                 :element="colItem"
                 :config="data.config"
                 :disabled="disabled"
+                :widgetForm="widgetForm"
               />
             </n-gi>
           </n-grid>
@@ -54,6 +55,7 @@
                   <GenerateFormItem
                       v-for="colItem of td.list"
                       :model="model"
+                      :widgetForm="widgetForm"
                       :key="colItem.key"
                       :element="colItem"
                       :config="data.config"
@@ -106,13 +108,19 @@ export default defineComponent({
   setup(props) {
     const message = useMessage()
     const generateForm = ref<FormInst | null>(null)
+    let widgetForm = (props.data && JSON.parse(JSON.stringify(props.data))) ?? naiveui.widgetForm;
+    for (let key in naiveui.widgetForm) {
+      if (naiveui.widgetForm.hasOwnProperty(key)) {
+        if(typeof naiveui.widgetForm[key] === 'function') {
+          widgetForm[key] = naiveui.widgetForm[key];
+        }
+      }
+    }
     const state = reactive({
       // generateForm: null as any,
       model: {} as any,
       rules: {} as any,
-      widgetForm:
-        (props.data && JSON.parse(JSON.stringify(props.data))) ??
-          naiveui.widgetForm
+      widgetForm:widgetForm
     })
 
     const generateModel = (list: any[]) => {

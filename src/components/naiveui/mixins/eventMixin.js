@@ -1,3 +1,5 @@
+import {naiveui} from "../config";
+
 export default {
     methods:{
         /**
@@ -6,6 +8,14 @@ export default {
          */
         handleChange(e){
             console.log('触发change事件：',e)
+            let widgetForm = this.widgetForm;
+            for (let key in naiveui.widgetForm) {
+                if (naiveui.widgetForm.hasOwnProperty(key)) {
+                    if(typeof naiveui.widgetForm[key] === 'function') {
+                        widgetForm[key] = naiveui.widgetForm[key];
+                    }
+                }
+            }
             let customFn = new Function('form','view','e', this.element.options.change)
             customFn.call(this,this.model,this.widgetForm, e)
         },

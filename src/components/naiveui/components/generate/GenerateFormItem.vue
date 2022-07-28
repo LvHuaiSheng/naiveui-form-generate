@@ -45,13 +45,15 @@
           :max="element.options.max"
           :min="element.options.min"
           :disabled="disabled ||  element.options.disabled"
-          :round="element.options.round"/>
+          :round="element.options.round"
+          @change="handleChange"/>
     </template>
 
     <template v-if="element.type === 'radio'">
       <n-radio-group v-model:value="data"
                      :size="config.size"
-                     :disabled="disabled || element.options.disabled">
+                     :disabled="disabled || element.options.disabled"
+                     @change="handleChange">
         <n-space v-if="element.options.groupType==='radioGroup'">
           <n-radio  v-for="item of element.options.options"
                     :key="item.value"
@@ -72,6 +74,7 @@
           v-model:value="data"
           :style="{ width: element.options.width }"
           :disabled="disabled || element.options.disabled"
+          @change="handleChange"
       >
         <n-checkbox
             v-for="item of element.options.options"

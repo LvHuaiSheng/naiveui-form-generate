@@ -248,10 +248,20 @@ export default defineComponent({
   },
   setup() {
     const message = useMessage()
+
+    let widgetForm = JSON.parse(JSON.stringify(naiveui.widgetForm));
+    for (let key in naiveui.widgetForm) {
+      if (naiveui.widgetForm.hasOwnProperty(key)) {
+        if(typeof naiveui.widgetForm[key] === 'function') {
+          widgetForm[key] = naiveui.widgetForm[key];
+        }
+      }
+    }
+
     const state = reactive({
       naiveui,
       codeType: CodeType,
-      widgetForm: JSON.parse(JSON.stringify(naiveui.widgetForm)),
+      widgetForm: widgetForm,
       widgetFormSelect: undefined,
       generateFormRef: null as any,
       configTab: 'widget',

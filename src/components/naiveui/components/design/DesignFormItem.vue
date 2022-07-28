@@ -23,6 +23,7 @@
           :round="element.options.round"
           :show-count="element.options.showCount"
           show-password-on="click"
+          @change="handleChange"
         >
             <template #prefix v-if="element.options.prefix">
               {{element.options.prefix}}
@@ -159,7 +160,7 @@
       </template>
       <template v-if="element.type === 'switch'">
         <n-switch
-          :size="config.size"
+          :size="config.size" @change="handleChange"
           v-model:value="element.options.defaultValue"
           :disabled="element.options.disabled"
         >
@@ -357,9 +358,10 @@ import {defineComponent, PropType, ref} from 'vue'
 import SvgIcon from '../../../../components/SvgIcon.vue'
 import RichTextEditor from '../custom/RichTextEditor.vue'
 import { WidgetForm } from '../../config/naiveui'
-
+import eventMixin from '../../mixins/eventMixin'
 export default defineComponent({
   name: 'NaiveWidgetFormItem',
+  mixins:[eventMixin],
   components: {
     SvgIcon,
     RichTextEditor,
@@ -375,12 +377,20 @@ export default defineComponent({
     },
     selectWidget: {
       type: Object
-    }
+    },
+    widgetForm: {
+      type: Object as PropType<WidgetForm>
+    },
   },
   emits: ['copy', 'delete'],
-  setup() {
+  data(){
+    return{
+    }
+  },
+  setup(props) {
     const handleFilterOption = (input: string, option: { label: string }) =>
       option.label.toLowerCase().includes(input)
+
     return {
       pattern: ref(''),
       handleFilterOption,

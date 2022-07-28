@@ -22,6 +22,19 @@
     </n-form-item>
 
     <component  v-if="checkComponent(data.type)" :is="data.type" :select="data"/>
+    <template v-if="hasKey('click') || hasKey('change') || hasKey('input') ">
+      <h4>事件处理</h4>
+      <n-form-item label="change事件" v-if="hasKey('change')">
+        <n-button type="info" dashed @click="editEventCode('change')">编辑代码</n-button>
+      </n-form-item>
+      <n-form-item label="click事件" v-if="hasKey('click')">
+        <n-button type="info" dashed @click="editEventCode('click')">编辑代码</n-button>
+      </n-form-item>
+      <n-alert
+          type="warning"
+          style="margin-bottom: 10px"
+      >注意：此功能在设计状态时无效，可点击预览查看效果</n-alert>
+    </template>
     <template v-if="hasKey('rules')">
       <h4>验证规则</h4>
 
@@ -52,6 +65,42 @@
       </n-form-item>
     </template>
   </n-form>
+  <n-modal
+      v-model:show="showEventCode"
+      :title="editEventHeader"
+      preset="dialog"
+      style="width:800px"
+      positive-text="保存"
+      negative-text="取消"
+      @positive-click="handleSaveEventCode"
+  >
+    <n-alert
+        type="info"
+        style="margin-bottom: 10px"
+    ><n-space>
+      使用示例
+      <n-button text type="primary" @click="setTestEvent('dynamicDisabled')">动态禁用/启用</n-button>
+      <n-button text type="primary" @click="setTestEvent('dynamicSetValue')">动态赋值</n-button>
+      <n-button text type="primary" @click="setTestEvent('dynamicRequired')">必填项修改</n-button>
+      <n-button text type="primary" @click="setTestEvent('dynamicHideLabel')">Label动态显隐</n-button>
+
+      (提示：仅支持Javascript语法)
+      </n-space></n-alert>
+    <div class="code-bord">function {{eventType}}(e,view,form){
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-icon size="18">
+            <SvgIcon iconClass="question" style="margin-right: 10px;" />
+          </n-icon>
+        </template>
+        e：naiveui组件的对应事件入参（如input传入的将是change后的value）<br/>
+        view：视图组件信息（更多操作查看src/components/naiveui/config/naiveui.ts）<br/>
+        form：表单信息
+      </n-tooltip>
+    </div>
+    <CodeEditor v-model:value="eventCode" language="javascript" />
+    <div class="code-bord">}</div>
+  </n-modal>
 </template>
 
 <script lang="ts">
@@ -87,11 +136,14 @@ import { v4 } from 'uuid'
 import {ComponentType,checkComponent} from '../../enums'
 import type {RowData} from '../../types/NaiveWidgetTypes'
 import type { DataTableColumns } from 'naive-ui'
+import CodeEditor from '../../components/CodeEditor.vue'
+
 export default defineComponent({
   name: 'DesignConfig',
   components: {
     Draggable,
     SvgIcon,
+    CodeEditor,
     Input,
     Number,
     Radio,
@@ -167,16 +219,50 @@ export default defineComponent({
         {label:'left',value:'left'},
         {label:'left-end',value:'left-end'},
       ],
+      eventType:null,
+      editEventHeader:'',
+      showEventCode:false,
+      eventCode:``,
     })
     const hasKey = (key: string) =>
       Object.keys(data.value.options).includes(key)
 
+    const setTestEvent = (type) => {
+      let code = ''
+      switch (type) {
+        case 'dynamicDisabled':
+          code='let widget = view.getWidget(\'字段标识\')\nif (widget){\n  widget.options.disabled = !widget.options.disabled\n}'
+          break
+        case 'dynamicHideLabel':
+          code='let widget = view.getWidget(\'字段标识\')\nif (widget){\n  widget.options.showLabel = false\n}'
+          break
+        case 'dynamicSetValue':
+          code=`form['字段标识'] = '新值'`
+          break
+        case 'dynamicRequired':
+          code='let widget = view.getWidget(\'字段标识\')\nif (widget){\n  widget.options.rules.required = true\n }'
+          break
+      }
+      state.eventCode = code
+    }
+    const editEventCode = (eventType) => {
+      state.editEventHeader = eventType+ '事件'
+      state.eventType = eventType
+      state.eventCode =  data.value.options[eventType]
+      state.showEventCode = true
+    }
+    const handleSaveEventCode = () => {
+      data.value.options[state.eventType]=state.eventCode
+    }
     return {
       ...toRefs(state),
       treeDataFormRef,
       data,
       hasKey,
       checkComponent,
+      editEventCode,
+      handleSaveEventCode,
+      setTestEvent,
     }
   }
 })

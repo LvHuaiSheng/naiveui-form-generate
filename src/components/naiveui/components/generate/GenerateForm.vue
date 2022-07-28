@@ -67,6 +67,7 @@
         </template>
         <GenerateFormItem
           v-else
+          :widgetForm="widgetForm"
           :model="model"
           :key="element.key"
           :element="widgetForm.list[index]"

@@ -94,12 +94,12 @@
           </n-icon>
         </template>
         e：naiveui组件的对应事件入参（如input传入的将是change后的value）<br/>
-        view：视图组件信息（详细信息查看src/components/naiveui/config/naiveui.ts）<br/>
+        view：视图组件信息（更多操作查看src/components/naiveui/config/naiveui.ts）<br/>
         form：表单信息
       </n-tooltip>
     </div>
     <CodeEditor v-model:value="eventCode" language="javascript" />
-    <div class="code-dord">}</div>
+    <div class="code-bord">}</div>
   </n-modal>
 </template>
 

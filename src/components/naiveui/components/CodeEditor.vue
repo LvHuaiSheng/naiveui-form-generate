@@ -27,7 +27,7 @@ export default defineComponent({
     },
     theme: {
       type: String,
-      default: 'github'
+      default: 'tomorrow'
     },
     readonly: {
       type: Boolean,

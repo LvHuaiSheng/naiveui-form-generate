@@ -50,26 +50,16 @@
           content-style="border-left: 1px solid #e4e7ed"
           width="400"
       >
-        <n-layout-header>
+      <n-layout-content class="config-content">
           <n-tabs type="line">
-            <n-tab name="字段属性"  @click="configTab = 'widget'">
-              &nbsp;字段属性
-            </n-tab>
-            <n-tab name="表单属性"  @click="configTab = 'form'">
-              表单属性
-            </n-tab>
+            <n-tab-pane name="widget" tab="字段属性">
+              <DesignConfig v-model:select="widgetFormSelect" />
+            </n-tab-pane>
+            <n-tab-pane name="form" tab="表单属性">
+              <NaiveFormConfig v-model:config="widgetForm.config" />
+            </n-tab-pane>
           </n-tabs>
-        </n-layout-header>
-        <n-layout-content class="config-content">
-          <DesignConfig
-              v-show="configTab === 'widget'"
-              v-model:select="widgetFormSelect"
-          />
-          <NaiveFormConfig
-              v-show="configTab === 'form'"
-              v-model:config="widgetForm.config"
-          />
-        </n-layout-content>
+        </n-layout-content> 
       </n-layout-sider>
     </n-layout>
     <n-modal

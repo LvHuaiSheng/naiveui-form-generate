@@ -10,7 +10,7 @@
   "dependencies": {
     "ace-builds": "^1.4.12",
     "lodash": "^4.17.21",
-    "naive-ui": "^2.30.6",
+    "naive-ui": "^2.33.3",
     "uuid": "^8.3.2",
     "vue": "^3.2.25",
     "vue3-i18n-plugin": "^1.0.9",

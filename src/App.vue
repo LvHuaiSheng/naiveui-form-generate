@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import FormDesign from './components/naiveui/FormDesign.vue';
-import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface';
 /* 阻止火狐浏览器在  draggable组件时拖动 打开新窗口 */
 document.body.ondrop = function(event) {
   event.preventDefault();

@@ -7,12 +7,13 @@ export default function (
 ) {
     if (codeType === CodeType.Form) {
         return `<template>
-    <naiveui-generate-form ref="generateFormRef" :data="widgetForm"></naiveui-generate-form>
+    <GenerateForm ref="generateFormRef" :data="widgetForm"/>
     <n-button type="primary" @click="handleSubmit">提交</n-button>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
+import GenerateForm from './components/generate/GenerateForm.vue'
 
 export default defineComponent({
   setup() {
@@ -51,7 +52,7 @@ export default defineComponent({
         @positive-click="handleCopyClick(dataCodeTemplate)"
     >
     <div>
-        <naiveui-generate-form ref="generateFormRef" :data="widgetForm"></naiveui-generate-form>
+        <GenerateForm ref="generateFormRef" :data="widgetForm"/>
     </div>
     <template #action>
         <n-button @click="handleClose">关闭</n-button>
@@ -61,6 +62,7 @@ export default defineComponent({
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
+import GenerateForm from './components/generate/GenerateForm.vue'
 
 export default defineComponent({
   setup() {

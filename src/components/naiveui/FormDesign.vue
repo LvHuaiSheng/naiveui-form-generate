@@ -128,7 +128,7 @@
     <n-modal
         v-model:show="dataCodeVisible"
         preset="dialog"
-        title="生产代码"
+        title="生成代码"
         positive-text="Copy"
         negative-text="关闭"
         style="width: 800px"

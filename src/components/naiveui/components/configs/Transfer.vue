@@ -105,7 +105,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-/deep/ .n-dynamic-input .n-dynamic-input-item .n-dynamic-input-item__action{
+:deep(.n-dynamic-input .n-dynamic-input-item .n-dynamic-input-item__action){
   margin: 0 0 0 10px;
 }
 </style>

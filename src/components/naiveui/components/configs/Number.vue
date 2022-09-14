@@ -1,7 +1,7 @@
 <template>
   <n-form-item
       label="默认内容">
-    <n-input v-model:value="data.options.defaultValue"/>
+    <n-input-number v-model:value="data.options.defaultValue"/>
   </n-form-item>
   <n-form-item label="最大值">
     <n-input-number v-model:value.number="data.options.max" />

@@ -45,7 +45,7 @@
         >
           <n-radio-button value="blur">Blur</n-radio-button>
           <n-radio-button value="change">Change</n-radio-button>
-          <n-radio-button :value="['blur', 'change']">All</n-radio-button>
+          <n-radio-button value="all">All</n-radio-button>
         </n-radio-group>
       </n-form-item>
 

@@ -15,7 +15,7 @@
 
 ### 预览
 
-[预览地址](http://152.136.97.190:8080/naiveui-form-generate)
+[预览地址](http://124.220.56.74/naiveui-form-generate)
 
 ### 特别提示
 推荐从Gitee仓库拉取代码，[NaiveUi Form Generate](https://gitee.com/sourcenet/naiveui-form-generate)，GitHub提交老是被墙，代码也许不是最新的
